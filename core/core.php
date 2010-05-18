@@ -3,7 +3,7 @@
 
 class Core {
     
-    
+    private $m_Request;
     
     public function run() {
         session_start();
@@ -11,7 +11,8 @@ class Core {
         var_dump($_REQUEST);
         
         
-        
+        $m_Request = new Request();
+        $m_Request->process();
         
     }
     
