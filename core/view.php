@@ -33,7 +33,7 @@ class View
      * @param string
      * @return void
      */                        
-    public function set_conent($script)
+    public function set_content($script)
     {
         $this->content_script = $script;
     }
