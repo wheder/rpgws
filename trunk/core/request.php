@@ -98,6 +98,7 @@ class Request
             $i = 3;
             while($i < count($get)) {
                 $this->getted_vars[$i - 3] = $get[$i]; 
+                $i++;
             }
         }
     }
