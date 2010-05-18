@@ -14,7 +14,7 @@ class View
     
     
     public function __get($name) {
-        if(isset($this->properties[$name])) return $properties[$name];
+        if(isset($this->properties[$name])) return $this->properties[$name];
         else return "";
     }
     
