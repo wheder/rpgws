@@ -14,12 +14,12 @@ class View
     
     
     public function __get($name) {
-        if(isset($properties[$name])) return $properties[$name];
+        if(isset($this->properties[$name])) return $properties[$name];
         else return "";
     }
     
     public function __set($name, $value) {
-        $properties[$name] = $value;
+        $this->properties[$name] = $value;
     }
     
     public function __construct()
