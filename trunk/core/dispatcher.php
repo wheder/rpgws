@@ -24,7 +24,6 @@ class Dispatcher implements DispatcherInterface
     public function dispatch(Request $request)
     {
         //TODO: create instance of module dispatcher if modul exists
-        echo "<br>\nDispatcher zavolan! <br>\n";
         
         $this->registerView(new View());
         $module = $request->get_module();
