@@ -21,6 +21,7 @@ class Request
     public function __construct()
     {
         $this->posted_vars = $_POST;
+        $this->parse_get();
     }
 
 
