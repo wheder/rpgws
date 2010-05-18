@@ -92,7 +92,7 @@ class Request
             $get = explode('/', $get);
             $this->module = $get[0];
             $this->controller = (isset($get[1]) ? $get[1] : "");
-            $this->action = (isset($get[2] ? $get[2] : "");
+            $this->action = (isset($get[2]) ? $get[2] : "");
             
             $i = 3;
             while($i < count($get)) {
