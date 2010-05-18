@@ -22,8 +22,15 @@ class Core {
             echo "<h3>Exception: " . $ex->getMessage() . "</h3>";
             $stackTrace = $ex->getTrace();
             foreach ($stackTrace as $key=>$value) {
-            	echo $value . "<br>\n";
-            } 
+            	echo "$key: " . $value["file"] . "(line: " . $value["line"] .
+                 ") -- " . $value["function"] "(";
+                 $sep = "";
+                 foreach($value["args"] as $arg) {
+                    echo $sep . $arg;
+                    $sep = ", "; 
+                 }
+                 echo ")<br>\n";
+            }
         }
         
     }
