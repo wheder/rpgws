@@ -34,7 +34,7 @@ class Request
      */
     public function get_double($name)
     {
-        $this->check_if_set()
+        $this->check_if_set();
         
         $result = 0.0;
         if(isset($getted_vars[$name])) $result = $getted_vars[$name];
