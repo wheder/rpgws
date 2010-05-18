@@ -28,7 +28,7 @@ class Dispatcher implements DispatcherInterface
 	   echo "Dispatcher zavolan! <br>\n";
 	   
 	   echo "Modul: " . $request->get_module() . "<br>\n";
-	   echo "Controller" . $request->get_controler() . "<br>\n";
+	   echo "Controller" . $request->get_controller() . "<br>\n";
 	   echo "Action: " . $request->get_action() . "<br>\n";
 	}
 
