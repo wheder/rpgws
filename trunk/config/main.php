@@ -17,6 +17,9 @@ defined('RPGWS_MODULES_PATH')
 defined('RPGWS_ENVINRONMENT')
     || define('RPGWS_ENVINRONMENT', 'public');
 
+defined('RPGWS_LAYOUT_PATH')
+    || define('RPGWS_LAYOUT_PATH', realpath(dirname(__FILE__) . '/../layout'));
+    
 require RPGWS_CONFIG . '/autoload.php';
 
 
