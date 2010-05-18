@@ -23,7 +23,7 @@ class Core {
             $stackTrace = $ex->getTrace();
             foreach ($stackTrace as $key=>$value) {
             	echo "$key: " . $value["file"] . "(line: " . $value["line"];
-                echo ") -- " . $value["function"] "(";
+                echo ") -- " . $value["function"] . "(";
                  $sep = "";
                  foreach($value["args"] as $arg) {
                     echo $sep . $arg;
