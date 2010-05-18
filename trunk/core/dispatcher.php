@@ -24,11 +24,11 @@ class Dispatcher implements DispatcherInterface
     public function dispatch(Request $request)
     {
         //TODO: create instance of module dispatcher if modul exists
-        echo "Dispatcher zavolan! <br>\n";
+        echo "<br>\nDispatcher zavolan! <br>\n";
         
         //$this->registerView(new View());
         $module = $request->get_module();
-        if(file_exists(RPGWS_MODULES_PATH . "/$module")) {
+        if(!empty($module) && file_exists(RPGWS_MODULES_PATH . "/$module")) {
             $dispatcher_class = $module . "_Dispatcher";
             $m_ModulDispatcher = new $dispatcher_class();
             $m_ModulDispatcher->registerView($this->m_View);
