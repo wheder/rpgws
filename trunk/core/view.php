@@ -78,7 +78,7 @@ class View
         return $result; 
     }
 
-    public function print()
+    public function printPage()
     {
         $content = $this->get_content($this->content_script);
         echo $this->get_layout($content, $this->layout_script);
