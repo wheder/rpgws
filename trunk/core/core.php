@@ -20,16 +20,13 @@ class Core {
         catch (Exception $ex)
         {
             echo "<h3>Exception: " . $ex->getMessage() . "</h3>";
-            echo $ex->getTraceAsString(); 
+            $stackTrace = $ex->getTrace();
+            foreach ($stackTrace as $key=>$value) {
+            	echo $value . "<br>\n";
+            } 
         }
         
     }
-    
-    
-
 
 
 }
-
-
-
