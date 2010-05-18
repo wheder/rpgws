@@ -29,7 +29,7 @@ class Dispatcher implements DispatcherInterface
         //$this->registerView(new View());
         $module = $request->get_module();
         if(!empty($module) && file_exists(RPGWS_MODULES_PATH . "/$module")) {
-            $dispatcher_class = $module . "_Dispatcher";
+            $dispatcher_class = ucfirst($module) . "_Dispatcher";
             $m_ModulDispatcher = new $dispatcher_class();
             $m_ModulDispatcher->registerView($this->m_View);
             $m_ModulDispatcher->dispatch($request);
