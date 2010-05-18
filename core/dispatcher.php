@@ -1,7 +1,4 @@
 <?php
-require_once ('View.php');
-require_once ('dispatcherinterface.php');
-
 /**
  * @author gambler
  * @version 1.0
