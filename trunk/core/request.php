@@ -91,13 +91,13 @@ class Request
         {
             $get = $_SERVER['REDIRECT_URL'];
             $get = explode('/', $get);
-            $this->module = $get[0];
-            $this->controller = (isset($get[1]) ? $get[1] : "");
-            $this->action = (isset($get[2]) ? $get[2] : "");
+            $this->module = $get[1];
+            $this->controller = (isset($get[2]) ? $get[2] : "");
+            $this->action = (isset($get[3]) ? $get[3] : "");
             
-            $i = 3;
+            $i = 4;
             while($i < count($get)) {
-                $this->getted_vars[$i - 3] = $get[$i]; 
+                $this->getted_vars[$i - 4] = $get[$i]; 
                 $i++;
             }
         }
