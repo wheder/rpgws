@@ -26,7 +26,7 @@ class Dispatcher implements DispatcherInterface
         //TODO: create instance of module dispatcher if modul exists
         echo "<br>\nDispatcher zavolan! <br>\n";
         
-        //$this->registerView(new View());
+        $this->registerView(new View());
         $module = $request->get_module();
         if(!empty($module) && file_exists(RPGWS_MODULES_PATH . "/$module")) {
             $dispatcher_class = ucfirst($module) . "_Dispatcher";
@@ -34,9 +34,13 @@ class Dispatcher implements DispatcherInterface
             $m_ModulDispatcher->registerView($this->m_View);
             $m_ModulDispatcher->dispatch($request);
         } else {
-            echo "Modul: " . $request->get_module() . "<br>\n";
-            echo "Controller: " . $request->get_controller() . "<br>\n";
-            echo "Action: " . $request->get_action() . "<br>\n";
+            global $rpgws_config;
+            $this->m_View->module = $module;
+            $this->m_View->controller = $request->get_controller();
+            $this->m_View->action = $request->get_action();  
+            $this->m_View->set_layout(RPGWS_LAYOUT_PATH . "/" . $rpgws_config['layout']['default']);
+            $this->m_View->set_content(RPGWS_LAYOUT_PATH . "/../view/default.php");
+            $this->m_View->print();
         }
     }
 
