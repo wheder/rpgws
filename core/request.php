@@ -1,22 +1,23 @@
 <?php
 
 /**
- * @author Jakub Holý
+ * @author Jakub Holy
  * @version 1.0
  * @created 18-V-2010 12:54:27
  */
 class Request
 {
 
+    private $full_uri = Array();
+    private $old_uri = Array();
+    private $new_uri = Array();
     private $getted_vars;
     private $posted_vars;
     private $m_Dispatcher;
     private $module;
-    private $controller;
-    private $action;
     
     /**
-     * Konstruktor tøídy naète hodnoty get a post do polí
+     * Konstruktor tridy nacte hodnoty get a post do poli
      */          
     public function __construct()
     {
@@ -24,43 +25,51 @@ class Request
         $this->parse_get();
     }
 
-
-
-    /**
-     * Metoda ziska z poslanych hodnot double hodnotu podle predaneho jmena.
-     *      
-     * @param name
-     * @throws Exception
-     * @return double          
-     */
-    public function get_double($name)
+    public function get_uri_float()
     {
-        $this->check_if_set();
-        
-        $result = 0.0;
-        if(isset($getted_vars[$name])) $result = $getted_vars[$name];
-       
-        if(isset($posted_vars[$name])) $result = $posted_vars[$name];
-       
-        if(!is_numeric($result)) throw new Exception("Variable $name isn't a number.");
-       
-        return $result;
+        $val = $this->next_value();
+        if (preg_match("/^(\-?)[0-9]+(\.?)[0-9]*$/", $val)) return $val;
+        return 0.0;
     }
-
-    /**
-     * Metoda ziska z poslanych hodnot integer hodnotu podle predaneho jmena.
-     *      
-     * @param name
-     * @throws Exception
-     * @return double
-     */
-    public function get_integer($name)
+    public function get_uri_int()
     {
-        $result = $this->get_double($name);
-        $result = floor($result);
-       
-        return $result;
+        return (int) $this->get_uri_float();
     }
+    public function get_uri_id()
+    {
+        return abs($this->get_uri_int());
+    }
+    public function get_uri_string()
+    {
+        return $this->next_value();
+    }
+    
+    public function get_param_float($name)
+    {
+        $val = $this->get_param($name);
+        if (preg_match("/^(\-?)[0-9]+(\.?)[0-9]*$/", $val)) return $val;
+        return 0.0;
+    }
+    public function get_param_int($name)
+    {
+        return (int) $this->get_uri_float($name);
+    }
+    public function get_param_id($name)
+    {
+        return abs($this->get_param_int($name));
+    }
+    public function get_param($name, $limit=null)
+    {
+        if (isset($_REQUEST[$name])) $val = $_REQUEST[$name];
+        else return null;
+        if ($limit !== null) {
+            if (strlen($val) > $limit) return null;
+        }
+        return $val;
+    }
+    
+    
+
 
     /**
      * Metoda ziska z poslanych hodnot retezec podle predaneho jmena.
@@ -90,62 +99,31 @@ class Request
         if(isset($_SERVER['REDIRECT_URL'])) 
         {
             $get = $_SERVER['REDIRECT_URL'];
-            $get = explode('/', $get);
-            $this->module = $get[1];
-            $this->controller = (isset($get[2]) ? $get[2] : "");
-            $this->action = (isset($get[3]) ? $get[3] : "");
+            $get = preg_replace("/\/+/", "/", $get);
+            if (isset($get[0]) && $get[0]=='/') $get= substr($get, 1);
             
-            $i = 4;
-            while($i < count($get)) {
-                $this->getted_vars[$i - 4] = $get[$i]; 
-                $i++;
-            }
+            $get = explode('/', $get);
+            $this->full_uri = $get;
+            $this->new_uri = $get;
+            $this->module = $this->next_value();
         }
     }
-
+    
+    private function next_value() {
+        $tmp = array_shift($this->new_uri);
+        if ($tmp !== null) array_push($this->old_uri, $tmp);
+        return $tmp;
+    }
+    
     public function process()
     {
         $this->m_Dispatcher = new Dispatcher();
         $this->m_Dispatcher->dispatch($this);
     }
 
-    /**
-     * Zjistí zda daná promìná byla zaslána v po¾adavku.
-     * 
-     * @throws Exception     
-     * @param string
-     * @return bool     
-     */
-    public function check_if_set($name)
-    {
-        if(empty($name)) throw new Exception('Empty requested variable name.'); 
-        if(!isset($getted_vars[$name]) && !isset($posted_vars[$name])) throw new Exception("Non-existing requested variable $name.");
-        
-        return true;
-    }
 
     /**
-     * Metoda vrátí akci po¾adovanou requestem
-     * 
-     * @return string
-     */                   
-    public function get_action()
-    {  
-       return $this->action;
-    }
-
-    /**
-     * Metoda vrátí controller po¾adovaný requestem
-     * 
-     * @return string
-     */
-    public function get_controller()
-    {
-        return $this->controller;
-    }
-
-    /**
-     * Metoda vrátí modul po¾adovaný requestem
+     * Metoda vrï¿½tï¿½ modul poï¿½adovanï¿½ requestem
      * 
      * @return string
      */
