@@ -42,7 +42,7 @@ class Dispatcher implements DispatcherInterface
             $this->m_View->set_layout(RPGWS_LAYOUT_PATH . "/" . $rpgws_config['layout']['default']);
             $this->m_View->set_content(RPGWS_VIEW_PATH . "/" . $rpgws_config['view']['error']);
              
-            $this-m_View->printPage();           
+            $this->m_View->printPage();           
         }
     }
 
