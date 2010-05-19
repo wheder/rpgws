@@ -2,6 +2,9 @@
 
 class Db_MySQLPDO implements Db_Abstract {
     private $connetion;
+    private $aff_rows;
+    private $num_rows;
+    
     function __construct() {
         $db_info = &$GLOBALS['rpgws_config']['db'];
         $required = Array('host', 'name', 'user', 'pass');
@@ -18,8 +21,53 @@ class Db_MySQLPDO implements Db_Abstract {
             exit (1);
         }
         
+        $this->aff_rows = 0;
+        $this->num_rows = 0;
+    }
+
+    public function affected_rows()
+    {
+        return $this->aff_rows;
+    }
+
+    public function last_insert_id()
+    {
+        return $this->connection->lastInsertId();
+    }
+
+    public function num_rows()
+    {
+        return $this->num_rows();
+    }
+
+    /**
+     * Metoda provede dotaz na databazy 
+     * @param string
+     * @return array     
+     */
+    public function query($sql)
+    {
+        $this->num_rows = 0;
+        $this->aff_rows = 0; 
+        if(!$result = $this->connection->query($sql)) 
+        {
+            $msg = "Database query: '$query' failed with error ";
+            $msg .= $this->connection->errorCode() . " (";
+            $msg .= $this->connection->errorInfo() . ").";
+            throw new DbQueryException($msg, "DB Query failed", "DB Query failed", 1001);
+        }
         
-        
+        $ret = 0;
+        if(preg_match("\\SELECT\\", $sql))
+        {
+            $ret = $result->fetchAll();
+            $this->num_rows = count($ret); 
+        }
+        else
+        {
+            $this->aff_rows = $result->rowCount();
+        }
+        return $ret;
     }
 
 
