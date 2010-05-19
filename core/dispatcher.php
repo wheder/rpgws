@@ -36,7 +36,7 @@ class Dispatcher implements DispatcherInterface
             global $rpgws_config;
             $this->m_View->ecode = 404;
             $this->m_View->error = "Page not found.";
-            $this->m_View->emsg = ""
+            $this->m_View->emsg = "Requested module doesn't exist.";
             $this->m_View->module = $module;
             
             $this->m_View->set_layout(RPGWS_LAYOUT_PATH . "/" . $rpgws_config['layout']['default']);
