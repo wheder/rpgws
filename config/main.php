@@ -20,6 +20,9 @@ defined('RPGWS_ENVINRONMENT')
 defined('RPGWS_LAYOUT_PATH')
     || define('RPGWS_LAYOUT_PATH', realpath(dirname(__FILE__) . '/../layout'));
     
+defined('RPGWS_VIEW_PATH')
+    || define('RPGWS_VIEW_PATH', realpath(dirname(__FILE__) . '/../view'));
+    
 require RPGWS_CONFIG . '/autoload.php';
 
 

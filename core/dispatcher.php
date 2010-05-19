@@ -23,23 +23,26 @@ class Dispatcher implements DispatcherInterface
      */
     public function dispatch(Request $request)
     {
-        //TODO: create instance of module dispatcher if modul exists
+        
         
         $this->registerView(new View());
         $module = $request->get_module();
         if(!empty($module) && file_exists(RPGWS_MODULES_PATH . "/$module")) {
-            $dispatcher_class = ucfirst($module) . "_Dispatcher";
+            $dispatcher_class = $module . "_dispatcher";
             $m_ModulDispatcher = new $dispatcher_class();
             $m_ModulDispatcher->registerView($this->m_View);
             $m_ModulDispatcher->dispatch($request);
         } else {
             global $rpgws_config;
+            $this->m_View->ecode = 404;
+            $this->m_View->error = "Page not found.";
+            $this->m_View->emsg = ""
             $this->m_View->module = $module;
-            $this->m_View->controller = $request->get_controller();
-            $this->m_View->action = $request->get_action();  
+            
             $this->m_View->set_layout(RPGWS_LAYOUT_PATH . "/" . $rpgws_config['layout']['default']);
-            $this->m_View->set_content(RPGWS_LAYOUT_PATH . "/../view/default.php");
-            $this->m_View->printPage();
+            $this->m_View->set_content(RPGWS_VIEW_PATH . "/" . $rpgws_config['view']['error']);
+             
+            $this-m_View->printPage();           
         }
     }
 
