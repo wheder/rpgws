@@ -34,6 +34,7 @@ class Dispatcher implements DispatcherInterface
             $m_ModulDispatcher->dispatch($request);
         } else {
             global $rpgws_config;
+            header('HTTP/1.1 404 Not Found');
             $this->m_View->ecode = 404;
             $this->m_View->error = "Page not found.";
             $this->m_View->emsg = "Requested module doesn't exist.";
