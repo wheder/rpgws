@@ -27,8 +27,14 @@ class RightsManager
         if($this->modul_id < 0)
         {
             global $rpgws_config;
-            $query = "SELECT module_id FROM " . $rpgws_config['db']['prefix'] . "modules";
-            $query .= " WHERE name = " . $this->m_DB->quote($module);
+            $query = "
+            	SELECT
+            	     module_id
+                FROM 
+                    " . $rpgws_config['db']['prefix'] . "modules
+                WHERE
+                    name = " . $this->m_DB->quote($module) . "
+            ";
         
             $result = $this->m_DB->query($query);
         
@@ -63,10 +69,15 @@ class RightsManager
             throw new NewGroupExistsException("Modul $module se pokousel vytvorit skupinu, ktera jiz existuje.", "Skupina existuje", "Skupina $group_name jiz v modulu existuje", 5011);
         }
         
-        $query = "INSERT INTO " . $rpgws_config['db']['prefix'] . "groups(module_id, name, description) VALUES(";
-        $query .= $this->m_DB->quote($module_id);
-        $query .= ", " . $this->m_DB->quote($group_name);
-        $query .= ", " . $this->m_DB->quote($description) . ")";
+        $query = "
+            INSERT INTO 
+                " . $rpgws_config['db']['prefix'] . "groups
+                (module_id, name, description)
+             VALUES(
+                 " . $this->m_DB->quote($module_id) . ",
+                 " . $this->m_DB->quote($group_name) . ",
+                 " . $this->m_DB->quote($description) . ")
+        ";
         
         $this->m_DB->query($query);
     }
@@ -89,9 +100,14 @@ class RightsManager
             throw new NewRightExistsException("Modul $module se pokousel vytvorit pravo, ktere jiz existuje.", "Právo již existuje", "Právo $right již v modulu existuje", 5012);
         }
         
-        $query = "INSERT INTO " . $rpgws_config['db']['prefix'] . "modules_rights(module_id, name) VALUES(";
-        $query .= $this->m_DB->quote($module_id);
-        $query .= ", " . $this->m_DB->quote($right) . ")";
+        $query = "
+        	INSERT INTO
+        	    " . $rpgws_config['db']['prefix'] . "modules_rights
+        	    (module_id, name) 
+        	VALUES(
+        	    " . $this->m_DB->quote($module_id) .",
+        	    " . $this->m_DB->quote($right) . ")
+        ";
         
         $this->m_DB->query($query);
     }
@@ -114,8 +130,12 @@ class RightsManager
             throw new GroupDoesntExistsException("Modul $module se pokousel smazat skupinu, ktera neexistuje.", "Skupina neexistuje", "Skupina $group_name jiz v modulu neexistuje", 5013);
         }
         
-        $query = "DELETE FROM " . $rpgws_config['db']['prefix'] . "groups";
-        $query .= " WHERE group_id = " . $this->m_DB->quote($gid);
+        $query = "
+            DELETE FROM
+                " . $rpgws_config['db']['prefix'] . "groups
+            WHERE
+                group_id = " . $this->m_DB->quote($gid) . "
+        ";
         
         $this->m_DB->query($query);
     }
@@ -138,8 +158,12 @@ class RightsManager
             throw new RightDoesntExistsException("Modul $module se pokousel smazat pravo, ktere neexistuje.", "Právo neexistuje", "Právo $right nemůže být smazáno protož neexistuje", 5014);
         }
         
-        $query = "DELETE FROM " . $rpgws_config['db']['prefix'] . "modules_rights";
-        $query .= " WHERE modules_right_id = " . $this->m_DB->quote($rid);
+        $query = "
+            DELETE FROM
+                " . $rpgws_config['db']['prefix'] . "modules_rights
+            WHERE 
+                modules_right_id = " . $this->m_DB->quote($rid) . "
+        ";
         
         $this->m_DB->query($query);
     }
@@ -159,9 +183,15 @@ class RightsManager
         $module = $req->get_module();
         $mod_id = $this->get_module_id();
         
-        $query = "SELECT group_id FROM " . $rpgws_config['db']['prefix'] . "groups";
-        $query .= " WHERE name = " . $this->m_DB->quote($group_name);
-        $query .= " AND module_id = " . $this->m_DB->quote($mod_id);
+        $query = "
+            SELECT
+                group_id
+            FROM 
+                " . $rpgws_config['db']['prefix'] . "groups
+            WHERE
+                name = " . $this->m_DB->quote($group_name) ."
+                AND module_id = " . $this->m_DB->quote($mod_id) . "
+        ";
         
         $result = $this->m_DB->query($query);
         
@@ -184,9 +214,15 @@ class RightsManager
         $module = $req->get_module();
         $mod_id = $this->get_module_id();
         
-        $query = "SELECT modules_right_id FROM " . $rpgws_config['db']['prefix'] . "modules_rights";
-        $query .= " WHERE name = " . $this->m_DB->quote($group_name);
-        $query .= " AND module_id = " . $this->m_DB->quote($mod_id);
+        $query = "
+            SELECT
+                modules_right_id
+            FROM 
+                " . $rpgws_config['db']['prefix'] . "modules_rights
+            WHERE 
+                name = " . $this->m_DB->quote($group_name) . "
+                AND module_id = " . $this->m_DB->quote($mod_id) . "
+        ";
         
         $result = $this->m_DB->query($query);
         
@@ -221,9 +257,13 @@ class RightsManager
             throw new GroupDoesntExistsException("Modul $module se pokousel smazat skupinu, ktera neexistuje.", "Skupina neexistuje", "Skupina $group_name jiz v modulu neexistuje", 5013);
         }
         
-        $query = "DELETE FROM " . $rpgws_config['db']['prefix'] . "rights";
-        $query = " WHERE group_id = " . $this->m_DB->quote($gid);
-        $query = " AND module_right = " . $this->m_DB->quote($rid);
+        $query = "
+            DELETE FROM
+                " . $rpgws_config['db']['prefix'] . "rights
+            WHERE
+                group_id = " . $this->m_DB->quote($gid) . "
+                AND module_right = " . $this->m_DB->quote($rid) . "
+        ";
         
         $this->m_DB->query($query);
     }
@@ -256,11 +296,17 @@ class RightsManager
             throw new GroupDoesntExistsException("Modul $module se pokousel smazat skupinu, ktera neexistuje.", "Skupina neexistuje", "Skupina $group_name jiz v modulu neexistuje", 5013);
         }
         
-        $query = "INSERT INTO " . $rpgws_config['db']['prefix'] . "rights(module_right, group_id, value)";
-        $query .= " VALUES(" . $this->m_DB->quote($rid);
-        $query .= ", " . $this->m_DB->quote($gid);
-        $query .= ", " . $this->m_DB->quote($value) . ")";
-        $query .= " ON DUPLICATE KEY UPDATE value = " . $this->m_DB->quote($value);
+        $query = "
+            INSERT INTO
+                " . $rpgws_config['db']['prefix'] . "
+                rights(module_right, group_id, value)
+            VALUES(
+                " . $this->m_DB->quote($rid) .",
+                " . $this->m_DB->quote($gid) .",
+                " . $this->m_DB->quote($value) . ")
+            ON DUPLICATE KEY UPDATE 
+                    value = " . $this->m_DB->quote($value) ."
+        ";
         
         $this->m_DB->query($query);
     }
@@ -285,9 +331,14 @@ class RightsManager
             throw new GroupDoesntExistsException("Modul $module se pokousel smazat skupinu, ktera neexistuje.", "Skupina neexistuje", "Skupina $group_name jiz v modulu neexistuje", 5013);
         }
         
-        $query = "INSERT IGNORE " . $rpgws_config['db']['prefix'] . "user_group(user_id, group_id)";
-        $query .= " VALUES(" . $this->m_DB->quote($user_id);
-        $query .= ", " . $this->m_DB->quote($gid) . ")";
+        $query = "
+            INSERT IGNORE
+                " . $rpgws_config['db']['prefix'] . "user_group
+                (user_id, group_id)
+            VALUES(
+                " . $this->m_DB->quote($user_id) . ",
+                " . $this->m_DB->quote($gid) . ")
+        ";
         
         $this->m_DB->query($query);
     }
@@ -312,9 +363,13 @@ class RightsManager
             throw new GroupDoesntExistsException("Modul $module se pokousel smazat skupinu, ktera neexistuje.", "Skupina neexistuje", "Skupina $group_name jiz v modulu neexistuje", 5013);
         }
         
-        $query = "DELETE FROM " . $rpgws_config['db']['prefix'] . "user_group";
-        $query .= " WHERE user_id = " . $this->m_DB->quote($user_id);
-        $query .= "AND group_id=" . $this->m_DB->quote($gid) . ")";
+        $query = "
+        	DELETE FROM 
+        	    " . $rpgws_config['db']['prefix'] . "user_group
+        	WHERE
+        	    user_id = " . $this->m_DB->quote($user_id) . "
+                AND group_id=" . $this->m_DB->quote($gid) . "
+        ";
         
         $this->m_DB->query($query);   
     }
