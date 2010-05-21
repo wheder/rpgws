@@ -5,7 +5,19 @@
         <title></title>
      </head>
     <body>
-        <?php echo $content ?>
+    	<div id="menu">
+	<ul>
+            <?php
+                foreach($this->menu as $name => $link)
+		{
+		    echo "<li><a href=\"$link\">$name</a></li>\n";
+		}
+	    ?>
+	</ul>
+	</div>
+	<div id="content">
+            <?php echo $content ?>
+	</div>
     </body>
 </html>
 
