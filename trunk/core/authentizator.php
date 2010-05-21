@@ -35,10 +35,10 @@ class Authentizator
         $module = $req->get_module();
         
         //kontrola jestli pozadovane pravo existuje
-        $query = "SELECT modules_right_id FROM " . $rpgws_config['db']['prefix'] . "modules_rights ";
-        $query .= " WHERE module_id = (SELECT module_id FROM " . $rpgws_config['db']['prefix'];
-        $query .= " WHERE name = " . $this->m_DB->quote($module) . ") AND name = ";
-        $query .= $this->m_DB->quote($module_right);
+        $query = "SELECT mr.modules_right_id, mr.module_id FROM " . $rpgws_config['db']['prefix'] . "modules_rights AS mr";
+        $query .= " JOIN " . $rpgws_config['db']['prefix'] . "modules AS m USING module_id";
+        $query .= " WHERE m.name = " . $this->m_DB->quote($module) . ")";
+        $query .= " AND mr.name = " . $this->m_DB->quote($module_right);
         
         $result = $this->m_DB->query($query);
         
@@ -48,11 +48,29 @@ class Authentizator
         }
            
         $right_id = $result[0]['modules_right_id'];
+        $module_id = $result[0]['module_id'];
+        
+        //nacteni grup uzivatele pro dany modul
+        $query = "SELECT DISTINCT ug.group_id FROM " . $rpgws_config['db']['prefix'] . "user_group AS ug";
+        $query .= " JOIN " . $rpgws_config['db']['prefix'] . "groups AS groups USING group_id";
+        $query .= " WHERE groups.module_id = " . $this->m_DB->quote($module_id);
+        $query .= " AND ug.user_id = " . $this->m_DB->quote($user);
+        
+        $result = $this->m_DB->query($query);
+        if($this->m_DB->num_rows() > 1)
+        {
+            return false;
+        }
+        foreach($result as $key => $value)
+        {
+            $result[$key] = $value['group_id'];
+        }
+        
+        $groups = implode(", ", $result);
         
         //kontrola prav
         $query = "SELECT value FROM " . $rpgws_config['db']['prefix'] . "rights";
-        $query .= " WHERE group_id IN (SELECT group_id FROM " . $rpgws_config['db']['prefix'] . "user_group";
-        $query .= " WHERE user_id = " . $this->m_DB->quote($user) . ")";
+        $query .= " WHERE group_id IN ($groups)";
         $query .= " ORDER BY value LIMIT 1";
 
         $result = $this->m_DB->query($query);
