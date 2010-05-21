@@ -15,6 +15,7 @@ class Request
     private $posted_vars;
     private $m_Dispatcher;
     private $module;
+    static private $instance;
     
     /**
      * Konstruktor tridy nacte hodnoty get a post do poli
@@ -23,8 +24,23 @@ class Request
     {
         $this->posted_vars = $_POST;
         $this->parse_get();
+        self::$instance = $this;
     }
 
+    /**
+     * Ziska instanci requestu
+     * 
+     * @return Request
+     */
+    public static function getInstance() {
+        if(self::$instance === null)
+        {
+            new self();
+        }
+        
+        return self::$instance;
+    }
+    
     public function get_uri_float()
     {
         $val = $this->next_value();
