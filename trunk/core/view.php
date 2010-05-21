@@ -77,6 +77,9 @@ class View
      */
     public function get_layout($content, $layout_script)
     {
+        if($this->m_Menu === null) {
+            $this->m_Menu = new Menu();
+        }
         $this->module_menu = $this->m_Menu->get_module_menu();
         $this->core_menu = $this->m_Menu->get_core_menu();
         $this->menu = $this->m_Menu->get_menu();
