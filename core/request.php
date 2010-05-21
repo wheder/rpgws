@@ -76,7 +76,7 @@ class Request
     }
     public function get_param($name, $limit=null)
     {
-        if (isset($_REQUEST[$name])) $val = $_REQUEST[$name];
+        if (isset($this->posted_vars[$name])) $val = $this->posted_vars[$name];
         else return null;
         if ($limit !== null) {
             if (strlen($val) > $limit) return null;
@@ -85,8 +85,6 @@ class Request
     }
     
     
-
-
     /**
      * Metoda ziska z poslanych hodnot retezec podle predaneho jmena.
      *          
@@ -97,14 +95,12 @@ class Request
     {
         $result = "";
         $this->check_if_set($name);
-        
-        if(isset($getted_vars[$name])) $result = $getted_vars[$name];
        
         if(isset($posted_vars[$name])) $result = $posted_vars[$name];
        
-        if(!is_string($result)) throw new Exception("Variable $name isn't a string.");
+        if(!is_string($result)) throw new StringParamException("Variable $name isn't a string.");
         
-        if(sizeof($result) > $maxlength) throw new Exception("String in variable $name is too long.");        
+        if(sizeof($result) > $maxlength) throw new StringParamException("String in variable $name is too long.");        
     }
 
     /**
