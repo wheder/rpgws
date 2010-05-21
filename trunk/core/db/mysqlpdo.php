@@ -70,7 +70,17 @@ class Db_MySQLPDO implements Db_Abstract {
         return $ret;
     }
 
-
+    /**
+     * Metoda pro obaleni retezce uvozovkami
+     * 
+     * @param string
+     * @return string
+     */
+    public function quote($str)
+    {
+        return $this->connection->quote($str);
+    }
+    
 }
 
 
