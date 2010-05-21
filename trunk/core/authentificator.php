@@ -61,16 +61,7 @@ class Authentificator
      * @return void
      */                             
     private function create_session($sql_result)
-    {
-        session_register('user_id');
-        session_register('nick');
-        session_register('mail');
-        session_register('name');
-        session_register('surname');
-        session_register('user_ip');
-        session_register('last_action');
-        session_register('last_login');
-        
+    {  
         $this->set_session($sql_result);
         $_SESSION['last_login'] = $_SESSION['last_action'];
         $_SESSION['user_ip'] = $_SERVER['REMOTE_ADDR'];
