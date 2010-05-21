@@ -8,7 +8,7 @@
 class Authentizator
 {
 
-    public $m_DB;
+    private $m_DB;
 
     function __construct()
     {
