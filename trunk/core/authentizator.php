@@ -57,7 +57,7 @@ class Authentizator
         $query .= " AND ug.user_id = " . $this->m_DB->quote($user);
         
         $result = $this->m_DB->query($query);
-        if($this->m_DB->num_rows() > 1)
+        if($this->m_DB->num_rows() < 1)
         {
             return false;
         }
@@ -74,7 +74,7 @@ class Authentizator
         $query .= " ORDER BY value LIMIT 1";
 
         $result = $this->m_DB->query($query);
-        if($this->m_DB->num_rows() > 1)
+        if($this->m_DB->num_rows() < 1)
         {
             return false;
         }
