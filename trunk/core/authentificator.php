@@ -63,8 +63,6 @@ class Authentificator
     private function create_session($sql_result)
     {  
         $this->set_session($sql_result);
-        $_SESSION['last_login'] = $_SESSION['last_action'];
-        $_SESSION['user_ip'] = $_SERVER['REMOTE_ADDR'];
         
         session_regenerate_id(true);
     }
@@ -80,21 +78,17 @@ class Authentificator
     {
         $_SESSION['user_id'] = $sql_result['user_id'];
         $_SESSION['nick'] = $sql_result['nick'];
-        $_SESSION['mail'] = $sql_result['mail'];
-        $_SESSION['name'] = $sql_result['name'];
-        $_SESSION['surname'] = $sql_result['surname'];
-        $_SESSION['last_action'] = time();
     }
     
     /**
      * Zkontroluje a pri pripadne zmene znovu nacte uzivatelova data z DB
      * 
-     * @return void
+     * @return bool
      */                   
     private function check_session()
     {
         global $rpgws_config;
-        $query = "SELECT changed FROM " . $rpgws_config['db']['prefix'] . "users AS users JOIN "  . $rpgws_config['db']['prefix'] . "login_log AS log ON (users.user_id = log.user_id) WHERE users.user_id = ";
+        $query = "SELECT INET_NTOA(last_ip) AS ip FROM " . $rpgws_config['db']['prefix'] . "users AS users JOIN "  . $rpgws_config['db']['prefix'] . "login_log AS log ON (users.user_id = log.user_id) WHERE users.user_id = ";
         $query .= $this->m_DB->quote($_SESSION['user_id']) . " AND log.success = 1 ORDER BY time DESC LIMIT 1";
         
         $result = $this->m_DB->query($query);
@@ -102,10 +96,7 @@ class Authentificator
             throw new NonExistUserException("Uzivatel $username neni v DB.", "Uzivatel neexistuje", "Uzivatel $username neexistuje.", 2001);
         $result = $result[0];
         
-        if($result['changed'] > 0) {
-            $result = $this->load_user_data("", $_SESSION['user_id']);
-            $this->set_session($result);
-        }
+        if($_SERVER['REMOTE_ADDR'] != $result['ip']) return false;
     }
 
     /**
@@ -138,12 +129,7 @@ class Authentificator
     {   
         if(!isset($_SESSION['user_id'])) return 0;
         
-        if($_SESSION['user_ip'] != $_SERVER['REMOTE_ADDR']) {
-            $this->logout();
-            throw new SessionHijackException("Ip adresa prihlaseneho uzivatele se neshoduje s aktualni ip adresou", "Chyba zabezpečení", "IP adresa přihlášení se neshoduje s aktuální", 4001);
-        }
-        
-        $this->check_session();
+        if(!$this->check_session()) return 0;
         
         $this->last_action($_SESSION['user_id']);
         
@@ -176,11 +162,16 @@ class Authentificator
             throw $ex;
         }
         
-                                
+        //zapsani last_ip
+        global $rpgws_config;
+        $query = "UPDATE " . $rpgws_config['db']['prefix'] . "users";
+        $query = " SET last_action = NOW(), ";
+        $query = " last_ip = INET_ATON(" . $this->m_DB->quote($_SERVER['REMOTE_ADDR']) . ")";
+        $query = " WHERE user_id = " . $this->m_DB->quote($result['user_id']);                 
         $this->create_session($result);
         
         $this->do_log($result['user_id'], true);
-        $this->last_action($result['user_id']);
+        
         return true;
     }
 
