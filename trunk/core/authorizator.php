@@ -5,7 +5,7 @@
  * @version 1.0
  * @created 21-V-2010 12:43:59
  */
-class Authentizator
+class Authorizator
 {
 
     private $m_DB;
