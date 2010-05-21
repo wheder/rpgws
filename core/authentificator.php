@@ -22,8 +22,14 @@ class Authentificator
     private function last_action($user_id)
     {
         global $rpgws_config;
-        $query = "UPDATE " . $rpgws_config['db']['prefix'] . "users SET last_action = NOW() WHERE user_id = ";
-        $query .= $this->m_DB->quote($user_id) . " LIMIT 1"; 
+        $query = "
+            UPDATE 
+                " . $rpgws_config['db']['prefix'] . "users
+            SET
+                last_action = NOW()
+            WHERE
+                 user_id = " . $this->m_DB->quote($user_id) ."
+        "; 
         
         $this->m_DB->query($query);
     }
@@ -43,12 +49,16 @@ class Authentificator
         if($success && $rpgws_config['logs']['level'] < 2) return;
         
         $succ = ($success ? 1 : 0);
-        $query = "INSERT INTO " . $rpgws_config['db']['prefix'] . "login_log (user_id, ip, time, success) VALUES (";
-        $query .= $this->m_DB->quote($user_id);
-        $query .= ", INET_ATON(" . $this->m_DB->quote($_SERVER['REMOTE_ADDR']). ")";
-        $query .= ", NOW()";
-        $query .= ", " . $this->m_DB->quote($succ);
-        $query .= ")";
+        $query = "
+            INSERT INTO
+                " . $rpgws_config['db']['prefix'] . "login_log
+                (user_id, ip, time, success)
+            VALUES (" .
+                $this->m_DB->quote($user_id) . ",
+                INET_ATON(" . $this->m_DB->quote($_SERVER['REMOTE_ADDR']). "),
+                NOW(),
+                " . $this->m_DB->quote($succ) .")
+        ";
         
         $this->m_DB->query($query);           
     }
@@ -88,8 +98,14 @@ class Authentificator
     private function check_session()
     {
         global $rpgws_config;
-        $query = "SELECT INET_NTOA(last_ip) AS ip FROM " . $rpgws_config['db']['prefix'] . "users AS users JOIN "  . $rpgws_config['db']['prefix'] . "login_log AS log ON (users.user_id = log.user_id) WHERE users.user_id = ";
-        $query .= $this->m_DB->quote($_SESSION['user_id']) . " AND log.success = 1 ORDER BY time DESC LIMIT 1";
+        $query = "
+            SELECT
+                INET_NTOA(last_ip) AS ip
+            FROM 
+                " . $rpgws_config['db']['prefix'] . "users
+            WHERE 
+                user_id = ". $this->m_DB->quote($_SESSION['user_id']) . "
+        ";
         
         $result = $this->m_DB->query($query);
         if(!$result || $this->m_DB->num_rows() < 1)
@@ -110,9 +126,23 @@ class Authentificator
     {
         global $rpgws_config;
         if($id == 0) {
-            $query = "SELECT * FROM " . $rpgws_config['db']['prefix'] . "users WHERE nick = " . $this->m_DB->quote($username) . " LIMIT 1";
+            $query = "
+                SELECT
+                    *
+                FROM 
+                    " . $rpgws_config['db']['prefix'] . "users
+                WHERE 
+                    nick = " . $this->m_DB->quote($username) . "
+            ";
         } else {
-            $query = "SELECT * FROM " . $rpgws_config['db']['prefix'] . "users WHERE user_id = " . $this->m_DB->quote($id) . " LIMIT 1";
+            $query = "
+                SELECT
+                    *
+                FROM 
+                    " . $rpgws_config['db']['prefix'] . "users
+                WHERE
+                    user_id = " . $this->m_DB->quote($id). "
+            ";
         }
         $result = $this->m_DB->query($query);
         if(!$result || $this->m_DB->num_rows() < 1)
@@ -164,10 +194,15 @@ class Authentificator
         
         //zapsani last_ip
         global $rpgws_config;
-        $query = "UPDATE " . $rpgws_config['db']['prefix'] . "users";
-        $query = " SET last_action = NOW(), ";
-        $query = " last_ip = INET_ATON(" . $this->m_DB->quote($_SERVER['REMOTE_ADDR']) . ")";
-        $query = " WHERE user_id = " . $this->m_DB->quote($result['user_id']);                 
+        $query = "
+            UPDATE
+                " . $rpgws_config['db']['prefix'] . "users
+            SET 
+                last_action = NOW(), 
+                last_ip = INET_ATON(" . $this->m_DB->quote($_SERVER['REMOTE_ADDR']) . ")
+            WHERE
+                user_id = " . $this->m_DB->quote($result['user_id']). "
+        ";                 
         $this->create_session($result);
         
         $this->do_log($result['user_id'], true);
