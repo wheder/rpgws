@@ -12,7 +12,6 @@ class View
     private $content_script;
     private $layout_script;
     
-    
     public function __get($name) {
         if(isset($this->properties[$name])) return $this->properties[$name];
         else return "";
@@ -24,7 +23,17 @@ class View
     
     public function __construct()
     {   
+    }
     
+    /**
+     * Nastavi pouzivanou instanci menu
+     * 
+     * @param Menu $menu
+     * @return void
+     */
+    public function set_menu(Menu $menu) 
+    {
+        $this->m_Menu = $menu;
     }
     
     /**
@@ -68,7 +77,10 @@ class View
      */
     public function get_layout($content, $layout_script)
     {
-        //$menu = $this->m_Menu->get_menu()
+        $this->module_menu = $this->m_Menu->get_module_menu();
+        $this->core_menu = $this->m_Menu->get_core_menu();
+        $this->menu = $this->m_Menu->get_menu();
+        
         ob_start();
         include $layout_script;
         
