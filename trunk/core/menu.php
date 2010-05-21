@@ -31,7 +31,19 @@ class Menu
 	 */
 	public function get_menu()
 	{
-	    return $this->get_core_menu();
+	    $result = $this->get_core_menu();
+	    $result = array_merge($result, $this->get_module_menu()); 
+	    return $result;
+	}
+	
+	/**
+	 * metoda pro samostatne menu modulu
+	 * 
+	 * @return array
+	 */
+	public function get_module_menu()
+	{
+	    return array();    
 	}
 }
 ?>
