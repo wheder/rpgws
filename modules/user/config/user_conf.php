@@ -1,6 +1,6 @@
 <?php
 
-//global $user_config;
+global $user_config;
 
 $user_config = array();
 $user_config['nick']['maxlength'] = 30;
