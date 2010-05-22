@@ -26,7 +26,49 @@ class User_Registration_Controller implements ControllerInterface
 
 	public function register_action()
 	{
-	    $this->m_Request =
+	    $nick = $this->m_Request->get_string("nick", $this->config['nick']['maxlength']);
+	    $mail = $this->m_Request->get_string("mail", $this->config['mail']['maxlength']);
+	    
+	    if(sizeof($nick) < $this->config['nick']['minlength']) 
+	    {
+	        $this->m_View->err = true;
+	        $this->m_View->emsg = "Uživatelské jméno je příliš krátké.";
+	        $this->m_View->printPage();
+	        return;
+	    }
+	    
+	    if($this->config['nick']['regexp']['match_required'] && !preg_match($this->config['nick']['regexp']['content'], $nick))
+	    {
+	        $this->m_View->err = true;
+	        $this->m_View->msg = "Uživatelské jméno obsahuje nepovolené znaky";
+	        $this->m_View->printPage();
+	        return;
+	    }
+	    
+	    if(sizeof($mail) < $this->config['mail']['minlength'])
+	    {
+	        $this->m_View->err = true;
+	        $this->m_View->msg = "Email je příliš krátký.";
+	        $this->m_View->printPage();
+	        return;
+	    }
+	    
+	    if($this->config['mail']['regexp']['match_required'] && !preg_match($this->config['mail']['regexp']['content'], $mail))
+	    {
+	        $this->m_View->err = true;
+	        $this->m_View->msg = "Uživatelské jméno obsahuje nepovolené znaky";
+	        $this->m_View->printPage();
+	        return;
+	    }
+	    
+	    $user = new User_Model();
+	    $user->nick = $nick;
+	    $user->mail = $mail;
+	    $pass = $user->generate_password($config['password']['generated_length']);
+	    $user->pass = sha1($nick . ":" . $pass);
+	    $user->last_ip = $_SERVER['REMOTE_ADDR'];
+	    $user->save();
+	    $this->m_View->msg = "Uživatel $nick byl úspěšně registrován. Heslo: $pass (<-- remove that! <--)";
 	    $this->m_View->printPage();
 	}
 

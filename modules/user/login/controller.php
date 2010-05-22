@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @author Michal Hyn�ica
+ * @author Jakub Holý
  * @version 1.0
  * @created 22-V-2010 12:29:46
  */
