@@ -3,13 +3,14 @@
 /**
  * @author Michal Hyn�ica
  * @version 1.0
- * @created 22-V-2010 12:30:22
+ * @created 22-V-2010 12:29:46
  */
-class User_Registration_Controller implements ControllerInterface
+class User_Login_Controller implements ControllerInterface
 {
 
 	private $m_View;
 	private $m_Request;
+	
 
 	function __construct()
 	{
@@ -21,9 +22,20 @@ class User_Registration_Controller implements ControllerInterface
 
 
 
-	public function register_action()
+	public function login_action()
 	{
-	    $this->m_View->printPage();   
+	}
+
+	public function form_action()
+	{
+	    $this->m_View->printPage();
+	}
+
+	public function logout_action()
+	{
+	    $auth = new Authentificator();
+	    $auth->logout();
+	    header("location: /");
 	}
 
 	/**
@@ -32,7 +44,7 @@ class User_Registration_Controller implements ControllerInterface
 	 */
 	public function registerRequest(Request $req)
 	{
-	    $this->m_Request = $req;
+	     $this->m_Request = $req;
 	}
 
 	/**
@@ -42,11 +54,6 @@ class User_Registration_Controller implements ControllerInterface
 	public function registerView(View $view)
 	{
 	    $this->m_View = $view;
-	}
-
-	public function show_form_action()
-	{
-	    $this->m_View->printPage();
 	}
 
 }
