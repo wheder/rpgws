@@ -23,5 +23,10 @@ interface ControllerInterface
 	 */
 	public function registerView(View $view);
 
+	/**
+	 * vychozi akce controlleru
+	 * @return void
+	 */
+	public function index_action();
 }
 ?>

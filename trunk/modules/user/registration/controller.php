@@ -49,5 +49,9 @@ class User_Registration_Controller implements ControllerInterface
 	    $this->m_View->printPage();
 	}
 
+	public function index_action()
+	{
+	    $this->show_form_action();
+	}
 }
 ?>
