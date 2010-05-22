@@ -4,7 +4,7 @@ $user_config = array();
 $user_config['nick']['maxlength'] = 30;
 $user_config['nick']['minlength'] = 3;
 $user_config['nick']['regexp']['match_required'] = true;
-$user_config['nick']['regexp']['content'] = '/[a-zA-Z0-9]*/';
+$user_config['nick']['regexp']['content'] = '/^[a-zA-Z0-9]*$/';
 
 $user_config['password']['minlength'] = 4;
 $user_config['password']['maxlength'] = 30;
