@@ -1,5 +1,6 @@
 <?php
 
+include dirname(__FILE__) . "/config/user_conf.php"; 
 /**
  * @author Jakub Holy
  * @version 1.0
