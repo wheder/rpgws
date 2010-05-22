@@ -1,7 +1,5 @@
 <?php
 
-global $user_config;
-
 $user_config = array();
 $user_config['nick']['maxlength'] = 30;
 $user_config['nick']['minlength'] = 3;
