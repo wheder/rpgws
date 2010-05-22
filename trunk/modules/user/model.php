@@ -284,7 +284,7 @@ class User_Model
      * 
      * @param newVal
      */
-    public function setnick(string $newVal)
+    public function setnick($newVal)
     {
         $this->nick = $newVal;
     }
@@ -293,7 +293,7 @@ class User_Model
      * 
      * @param newVal
      */
-    public function setpass(string $newVal)
+    public function setpass($newVal)
     {
         $this->pass = $newVal;
     }
