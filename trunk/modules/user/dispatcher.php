@@ -28,6 +28,7 @@ class User_Dispatcher implements DispatcherInterface
 	 */
 	public function dispatch(Request $request)
 	{
+	    global $rpgws_config;
 	    $controller = $request->get_uri_string();
 	    $action = $request->get_uri_string();
 	    $cont_class = "User_" . $controller . "_Controller";
