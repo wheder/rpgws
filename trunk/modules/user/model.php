@@ -92,7 +92,7 @@ class User_Model
         
         $result = "";
         for($i = 0; $i < $length; $i++) {
-            $rand = mt_rand(0, sizeof($charpool) - 1);
+            $rand = mt_rand(0, strlen($charpool) - 1);
             $result .= substr($charpool, $rand, 1);
         }
         
@@ -284,7 +284,7 @@ class User_Model
      * 
      * @param newVal
      */
-    public function setnick($newVal)
+    public function setnick(string $newVal)
     {
         $this->nick = $newVal;
     }
@@ -293,7 +293,7 @@ class User_Model
      * 
      * @param newVal
      */
-    public function setpass($newVal)
+    public function setpass(string $newVal)
     {
         $this->pass = $newVal;
     }

@@ -56,7 +56,7 @@ class User_Registration_Controller implements ControllerInterface
 	    if($this->config['mail']['regexp']['match_required'] && !preg_match($this->config['mail']['regexp']['content'], $mail))
 	    {
 	        $this->m_View->err = true;
-	        $this->m_View->msg = "Uživatelské jméno obsahuje nepovolené znaky";
+	        $this->m_View->msg = "Email nemá platný tvar";
 	        $this->m_View->printPage();
 	        return;
 	    }
