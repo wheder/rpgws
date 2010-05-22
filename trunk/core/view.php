@@ -99,5 +99,13 @@ class View
         echo $this->get_layout($content, $this->layout_script);
     }
 
+    public static function load_text($file, $vars) 
+    {
+	    ob_start();
+	    include $file;
+	    $result = ob_get_contents();
+	    ob_end_clean();
+	    return $result;
+	}
 }
 ?>
