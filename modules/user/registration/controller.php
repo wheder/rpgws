@@ -52,7 +52,7 @@ class User_Registration_Controller implements ControllerInterface
 	        return;
 	    }
 	    
-	    if($this->config['mail']['regexp']['match_required'] && !preg_match($this->config['mail']['regexp']['content'], $mail))
+	    if(filter_var($mail, FILTER_VALIDATE_EMAIL))
 	    {
 	        $this->m_View->err = true;
 	        $this->m_View->msg = "Email nemá platný tvar";
@@ -66,8 +66,13 @@ class User_Registration_Controller implements ControllerInterface
 	    $pass = $user->generate_password($this->config['password']['generated_length']);
 	    $user->pass = sha1($nick . ":" . $pass);
 	    $user->last_ip = $_SERVER['REMOTE_ADDR'];
-	    $user->save();
-	    $this->m_View->msg = "Uživatel $nick byl úspěšně registrován. Heslo: $pass (<-- remove that! <--)";
+	    try {
+	        $user->save();
+	        $this->m_View->msg = "Uživatel $nick byl úspěšně registrován. Heslo: $pass (<-- remove that! <--)";
+	    } catch (Exception $ex) {
+	        $this->m_View->err = true;
+	        $this->m_View->msg = "Uživatel nebo e-mail již jsou v databázi.";
+	    }
 	    $this->m_View->printPage();
 	}
 
