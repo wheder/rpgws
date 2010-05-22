@@ -23,6 +23,7 @@ class User_Registration_Controller implements ControllerInterface
 
 	public function register_action()
 	{
+	    $this->m_Request =
 	    $this->m_View->printPage();   
 	}
 
@@ -46,6 +47,11 @@ class User_Registration_Controller implements ControllerInterface
 
 	public function show_form_action()
 	{
+	    global $user_config;
+	    
+	    $this->m_View->nick_max = $user_config['nick']['maxlength'];
+	    $this->m_View->pass_max = $user_config['password']['maxlength'];
+	    $this->m_View->mail_max = $user_config['mail']['maxlength'];
 	    $this->m_View->printPage();
 	}
 
