@@ -52,7 +52,7 @@ class User_Registration_Controller implements ControllerInterface
 	        return;
 	    }
 	    
-	    if(filter_var($mail, FILTER_VALIDATE_EMAIL))
+	    if(filter_var($mail, FILTER_VALIDATE_EMAIL) === false)
 	    {
 	        $this->m_View->err = true;
 	        $this->m_View->msg = "Email nemá platný tvar";
