@@ -58,7 +58,7 @@ class User_Login_Controller implements ControllerInterface
 
 	public function index_action()
 	{
-	    $this->form_action();
+	    header('location: /user/login/form')
 	}
 }
 ?>
