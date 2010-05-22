@@ -94,7 +94,7 @@ class Request
     public function get_string($name, $maxlength)
     {
         $result = "";
-        $this->check_if_set($name);
+        //$this->check_if_set($name);
        
         if(isset($posted_vars[$name])) $result = $posted_vars[$name];
        
