@@ -17,7 +17,7 @@ class Menu
 	{
 	    $result = array();
 	    $result['Home'] = '/';
-	    $result['Registrace'] = '/user/registration/new';
+	    $result['Registrace'] = '/user/registration/show_form';
 	    $result['Login'] = '/user/login/in';
 	    $result['Logout'] = '/user/login/out';
 	    
