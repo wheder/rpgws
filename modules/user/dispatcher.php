@@ -32,6 +32,7 @@ class User_Dispatcher implements DispatcherInterface
 	    $controller = $request->get_uri_string();
 	    $action = $request->get_uri_string();
 	    if(empty($action)) $action = "index";
+	    
 	    $cont_class = "User_" . $controller . "_Controller";
 	    $action_method = $action . "_action";
 	    
@@ -41,6 +42,7 @@ class User_Dispatcher implements DispatcherInterface
 	    $this->m_View->set_menu(new Menu());
 	    
 	    $cont = new $cont_class();
+	    if(!method_exists($cont, $action_method)) $action_method = "index_action";
 	    $cont->registerView($this->m_View);
 	    $cont->registerRequest($request);
 	    $cont->$action_method();
