@@ -58,7 +58,7 @@ class Db_MySQLPDO implements Db_Abstract {
         }
         
         $ret = 0;
-        if(preg_match("\\SELECT\\", $sql))
+        if(preg_match("/SELECT/", $sql))
         {
             $ret = $result->fetchAll();
             $this->num_rows = count($ret); 
