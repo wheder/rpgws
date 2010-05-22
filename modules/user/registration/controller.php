@@ -1,8 +1,4 @@
 <?php
-require_once ('..\..\..\core\request.php');
-require_once ('User_Dispatcher.php');
-require_once ('..\..\..\core\controllerinterface.php');
-require_once ('..\model.php');
 
 /**
  * @author Michal Hyn�ica
