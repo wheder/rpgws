@@ -51,7 +51,7 @@ class User_Registration_Controller implements ControllerInterface
 
 	public function index_action()
 	{
-	    $this->show_form_action();
+	    header("location: /user/registration/show_form");
 	}
 }
 ?>
