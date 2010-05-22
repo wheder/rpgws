@@ -26,13 +26,12 @@ class User_Registration_Controller implements ControllerInterface
 
 	public function register_action()
 	{
-	    $nick = $this->m_Request->get_string("nick", $this->config['nick']['maxlength']);
-	    $mail = $this->m_Request->get_string("mail", $this->config['mail']['maxlength']);
-	    
-	    if(sizeof($nick) < $this->config['nick']['minlength']) 
+	    $nick = $this->m_Request->get_param("nick", $this->config['nick']['maxlength']);
+	    $mail = $this->m_Request->get_param("mail", $this->config['mail']['maxlength']);
+	    if(strlen($nick) < $this->config['nick']['minlength']) 
 	    {
 	        $this->m_View->err = true;
-	        $this->m_View->emsg = "Uživatelské jméno je příliš krátké.";
+	        $this->m_View->msg = "Uživatelské jméno je příliš krátké.";
 	        $this->m_View->printPage();
 	        return;
 	    }
@@ -45,7 +44,7 @@ class User_Registration_Controller implements ControllerInterface
 	        return;
 	    }
 	    
-	    if(sizeof($mail) < $this->config['mail']['minlength'])
+	    if(strlen($mail) < $this->config['mail']['minlength'])
 	    {
 	        $this->m_View->err = true;
 	        $this->m_View->msg = "Email je příliš krátký.";
@@ -64,7 +63,7 @@ class User_Registration_Controller implements ControllerInterface
 	    $user = new User_Model();
 	    $user->nick = $nick;
 	    $user->mail = $mail;
-	    $pass = $user->generate_password($config['password']['generated_length']);
+	    $pass = $user->generate_password($this->config['password']['generated_length']);
 	    $user->pass = sha1($nick . ":" . $pass);
 	    $user->last_ip = $_SERVER['REMOTE_ADDR'];
 	    $user->save();
