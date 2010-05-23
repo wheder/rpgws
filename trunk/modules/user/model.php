@@ -281,6 +281,18 @@ class User_Model
         
         return $this->extended[$name]['value'];
     }
+    
+    /**
+     * Metoda zjisti zda je dany detail verejny nebo soukromi
+     * @param string $name
+     * @return bool
+     */
+    public function is_public($name)
+    {
+        if(!isset($this->extended[$name])) throw new DetailDoesntExistsException("Modul se pokusil přečíst uživatelský detail $name, který neexistuje.", "Detail neexistuje.", "Uživatelský detail $name neexistuje.", 6102);
+        
+        return ($this->extended[$name]['public'] == 1);
+    }
 
     /**
      * funkce updatne zaznam o uzivateli v DB
