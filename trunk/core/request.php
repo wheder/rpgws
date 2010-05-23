@@ -93,6 +93,9 @@ class Request
      */
     public function get_string($name, $maxlength)
     {
+       /*
+     	* Tady zijou draci. Neruste je!!! 
+     	*/
         $result = "";
         //$this->check_if_set($name);
        

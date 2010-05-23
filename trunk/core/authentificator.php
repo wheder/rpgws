@@ -178,6 +178,7 @@ class Authentificator
     {
         $result = $this->load_user_data($username);
         
+        $this->flood_check($result['user_id']);
         $pass = sha1($username . ":" . $password);
         try {
             if($result['pass'] != $pass)
@@ -207,6 +208,37 @@ class Authentificator
         $this->do_log($result['user_id'], true);
         
         return true;
+    }
+    
+    /**
+     * Metoda zkontroluje zda nedoslo k prekroceni limitu prihlasovani
+     * @param $user_id
+     * @return void
+     */
+    private function flood_check($user_id)
+    {
+        global $rpgws_config;
+        $query = "
+            SELECT 
+        	    COUNT(*) AS pocet,
+        	FROM 
+        	    " . $rpgws_config['db']['prefix'] . "login_log
+        	WHERE 
+        	    time > DATE_SUB(NOW(), INTERVAL " . $rpgws_config['flood_prot']['time_limit'] . " SECOND ))
+        	    AND user_id = " . $this->m_DB->quote($user_id) . "
+        ";
+        
+        $result = $this->m_DB->query($query);
+        
+        if(!$result || $this->m_DB->num_rows() < 1)
+        {
+            return;
+        }
+        
+        if($result[0]['pocet'] > $rpgws_config['flood_prot']['limit'])
+        {
+            throw new FloodLimitExceededException("Uzivatel s id $user_id prekrocil limit neuspesnych prihlaseni", "Překročen limit", "Byl překročen limit neúspěšných pokusů o přihlášení.", 2004);
+        }
     }
 
     /**
