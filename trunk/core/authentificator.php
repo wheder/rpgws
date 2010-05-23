@@ -124,6 +124,7 @@ class Authentificator
      */                             
     private function load_user_data($username, $id = 0)
     {
+    	//@TODO: vykopat odsud ten SELECT *
         global $rpgws_config;
         if($id == 0) {
             $query = "
