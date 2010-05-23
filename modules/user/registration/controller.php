@@ -71,7 +71,7 @@ class User_Registration_Controller implements ControllerInterface
 	        $this->m_View->msg = "Uživatel $nick byl úspěšně registrován. Heslo: $pass (<-- remove that! <--)";
 	        $mailer = new User_Mailer($this->config['mailer']['from'], $this->config['mailer']['reply']);
 	        $vars = array();
-	        $vars['user'] = $nick;
+	        $vars['nick'] = $nick;
 	        $vars['mail'] = $mail;
 	        $vars['pass'] = $pass;
 	        $content = View::load_text(dirname(__FILE__) . "/../mail_temps/new_registration.php", $vars);
