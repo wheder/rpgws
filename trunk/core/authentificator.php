@@ -113,7 +113,7 @@ class Authentificator
         $result = $result[0];
         
         if($_SERVER['REMOTE_ADDR'] != $result['ip']) return false;
-	return true;
+        return true;
     }
 
     /**
@@ -249,9 +249,21 @@ class Authentificator
      */                   
     public function logout()
     {
-        if($this->logged_user() > 0) {
+        global $rpgws_config;
+        if(($user = $this->logged_user()) > 0) {
             session_destroy();
             session_regenerate_id(true);
+            
+            $query = "
+            	UPDATE
+            	    " . $rpgws_config['db']['prefix'] . "users
+            	SET
+            	    last_action = NULL
+            	WHERE
+            	    user_id = " . $this->m_DB->quote($user) . "
+            ";
+            
+            $this->m_DB->query($query);
         }
     }
 
