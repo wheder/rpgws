@@ -10,7 +10,7 @@ class User_Registration_Controller implements ControllerInterface
 
 	private $m_View;
 	private $m_Request;
-        private $config = Array();
+    private $config = Array();
 
 	function __construct()
 	{
