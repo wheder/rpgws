@@ -17,7 +17,7 @@ class User_Info_Controller implements ControllerInterface
 	{
 	    include dirname(__FILE__) . "/../config/user_conf.php"; 
         $this->config = $user_config;
-        $auth = new Authentificator();
+        $this->auth = new Authentificator();
 	}
 
 
