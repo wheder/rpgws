@@ -42,7 +42,7 @@ class Authorizator
             FROM
                 " . $rpgws_config['db']['prefix'] . "modules_rights AS mr
             JOIN 
-                " . $rpgws_config['db']['prefix'] . "modules AS m USING module_id
+                " . $rpgws_config['db']['prefix'] . "modules AS m USING (module_id)
             WHERE
                 m.name = " . $this->m_DB->quote($module) . "
                 AND mr.name = " . $this->m_DB->quote($module_right)."
@@ -65,7 +65,7 @@ class Authorizator
             FROM 
                 " . $rpgws_config['db']['prefix'] . "user_group AS ug
             JOIN
-                " . $rpgws_config['db']['prefix'] . "groups AS groups USING group_id
+                " . $rpgws_config['db']['prefix'] . "groups AS groups USING (group_id)
             WHERE
                 groups.module_id = " . $this->m_DB->quote($module_id) ."
                 AND ug.user_id = " . $this->m_DB->quote($user)."
