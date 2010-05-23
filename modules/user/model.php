@@ -297,6 +297,19 @@ class User_Model
         
         return ($this->extended[$name]['public'] == 1);
     }
+    
+    /**
+     * Metoda nastavi detail jako verejny/soukromi
+     * @param string $name
+     * @param bool $public
+     * @return void
+     */
+    public function set_public($name, $public)
+    {
+        if(!isset($this->extended[$name])) throw new DetailDoesntExistsException("Modul se pokusil přečíst uživatelský detail $name, který neexistuje.", "Detail neexistuje.", "Uživatelský detail $name neexistuje.", 6102);
+        
+        $this->extended[$name]['public'] = ($public ? 1 : 0);
+    }
 
     /**
      * funkce updatne zaznam o uzivateli v DB
