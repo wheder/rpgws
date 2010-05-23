@@ -68,7 +68,7 @@ class User_Registration_Controller implements ControllerInterface
 	    $user->last_ip = $_SERVER['REMOTE_ADDR'];
 	    try {
 	        $user->save();
-	        $this->m_View->msg = "Uživatel $nick byl úspěšně registrován. Heslo: $pass (<-- remove that! <--)";
+	        $this->m_View->msg = "Uživatel $nick byl úspěšně registrován.";
 	        $mailer = new User_Mailer($this->config['mailer']['from'], $this->config['mailer']['reply']);
 	        $vars = array();
 	        $vars['nick'] = $nick;
