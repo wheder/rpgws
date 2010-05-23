@@ -220,7 +220,7 @@ class Authentificator
         global $rpgws_config;
         $query = "
             SELECT 
-        	    COUNT(*) AS pocet,
+        	    COUNT(*) AS pocet
         	FROM 
         	    " . $rpgws_config['db']['prefix'] . "login_log
         	WHERE 
