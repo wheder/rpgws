@@ -18,23 +18,25 @@ CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_users` (
   `pass` CHAR(40) NOT NULL ,
   `mail` VARCHAR(255) NOT NULL ,
   `deleted` BIT NOT NULL ,
-  `confirmed` BIT NOT NULL ,
+  `confirmed` BIT NOT NULL COMMENT 'neznamena to ze ten uzivatel se smi prihlasit\n\nznamena to, ze uzivatel je manualne potvrzen jako existujici a normalni clovek' ,
   `last_action` DATETIME NULL ,
   `last_ip` INT UNSIGNED NOT NULL ,
   `born` DATE NOT NULL ,
-  `unsuccessful_login_attempts` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`user_id`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `idx_users_nick` ON `wheder`.`RPGWS_users` (`nick` ASC) ;
+CREATE UNIQUE INDEX `uq_users_nick` ON `wheder`.`RPGWS_users` (`nick` ASC) ;
 
 SHOW WARNINGS;
 CREATE INDEX `idx_users_deleted` ON `wheder`.`RPGWS_users` (`deleted` ASC) ;
 
 SHOW WARNINGS;
 CREATE INDEX `idx_users_confirmed` ON `wheder`.`RPGWS_users` (`confirmed` ASC) ;
+
+SHOW WARNINGS;
+CREATE UNIQUE INDEX `uq_mail_address` ON `wheder`.`RPGWS_users` (`mail` ASC) ;
 
 SHOW WARNINGS;
 
@@ -69,8 +71,8 @@ CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_groups` (
   CONSTRAINT `fk_groups_modules1`
     FOREIGN KEY (`module_id` )
     REFERENCES `wheder`.`RPGWS_modules` (`module_id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -92,13 +94,13 @@ CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_user_group` (
   CONSTRAINT `fk_usergroup_users_id`
     FOREIGN KEY (`user_id` )
     REFERENCES `wheder`.`RPGWS_users` (`user_id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_usergroup_groups_id`
     FOREIGN KEY (`group_id` )
     REFERENCES `wheder`.`RPGWS_groups` (`group_id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -124,8 +126,8 @@ CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_modules_rights` (
   CONSTRAINT `fk_modules_rights_parent`
     FOREIGN KEY (`module_id` )
     REFERENCES `wheder`.`RPGWS_modules` (`module_id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -151,13 +153,13 @@ CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_rights` (
   CONSTRAINT `fk_rights_modules_right`
     FOREIGN KEY (`module_right` )
     REFERENCES `wheder`.`RPGWS_modules_rights` (`modules_right_id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_rights_group`
     FOREIGN KEY (`group_id` )
     REFERENCES `wheder`.`RPGWS_groups` (`group_id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -213,7 +215,7 @@ DROP TABLE IF EXISTS `wheder`.`RPGWS_user_detail_types` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_user_detail_types` (
-  `user_detail_type_id` INT UNSIGNED NOT NULL ,
+  `user_detail_type_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL ,
   PRIMARY KEY (`user_detail_type_id`) )
 ENGINE = InnoDB;
@@ -240,8 +242,8 @@ CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_user_detail` (
   CONSTRAINT `fk_user_detail_type`
     FOREIGN KEY (`user_detail_type_id` )
     REFERENCES `wheder`.`RPGWS_user_detail_types` (`user_detail_type_id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -249,6 +251,27 @@ CREATE INDEX `fk_user_id` ON `wheder`.`RPGWS_user_detail` (`user_id` ASC) ;
 
 SHOW WARNINGS;
 CREATE INDEX `fk_user_detail_type` ON `wheder`.`RPGWS_user_detail` (`user_detail_type_id` ASC) ;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `wheder`.`RPGWS_drd_players`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `wheder`.`RPGWS_drd_players` ;
+
+SHOW WARNINGS;
+CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_drd_players` (
+  `drd_player_id` INT UNSIGNED NOT NULL ,
+  PRIMARY KEY (`drd_player_id`) ,
+  CONSTRAINT `fk_drd_players_1`
+    FOREIGN KEY (`drd_player_id` )
+    REFERENCES `wheder`.`RPGWS_users` (`user_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+CREATE INDEX `fk_drd_players_1` ON `wheder`.`RPGWS_drd_players` (`drd_player_id` ASC) ;
 
 SHOW WARNINGS;
 
@@ -302,7 +325,7 @@ DROP TABLE IF EXISTS `wheder`.`RPGWS_drd_characters` ;
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_drd_characters` (
   `drd_character_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `owner_id` INT UNSIGNED NOT NULL ,
+  `owner_id` INT UNSIGNED NULL ,
   `name` VARCHAR(255) NOT NULL ,
   `description` TEXT NULL ,
   `race_id` INT UNSIGNED NOT NULL ,
@@ -311,17 +334,17 @@ CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_drd_characters` (
   `mana` INT NULL ,
   `items` TEXT NULL COMMENT 'mozna by se mohlo prehodit na reference... v budoucnu' ,
   PRIMARY KEY (`drd_character_id`) ,
-  CONSTRAINT `fk_owner_id`
+  CONSTRAINT `fk_character_owner_id`
     FOREIGN KEY (`owner_id` )
-    REFERENCES `wheder`.`RPGWS_users` (`user_id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_class_id`
+    REFERENCES `wheder`.`RPGWS_drd_players` (`drd_player_id` )
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_character_class_id`
     FOREIGN KEY (`class_id` )
     REFERENCES `wheder`.`RPGWS_drd_classes` (`drd_classes_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_race_id`
+  CONSTRAINT `fk_character_race_id`
     FOREIGN KEY (`race_id` )
     REFERENCES `wheder`.`RPGWS_drd_races` (`drd_races_id` )
     ON DELETE NO ACTION
@@ -329,22 +352,25 @@ CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_drd_characters` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `idx_owner_id` ON `wheder`.`RPGWS_drd_characters` (`owner_id` ASC) ;
+CREATE INDEX `idx_character_owner_id` ON `wheder`.`RPGWS_drd_characters` (`owner_id` ASC) ;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_owner_id` ON `wheder`.`RPGWS_drd_characters` (`owner_id` ASC) ;
+CREATE INDEX `fk_character_owner_id` ON `wheder`.`RPGWS_drd_characters` (`owner_id` ASC) ;
 
 SHOW WARNINGS;
-CREATE INDEX `idx_race_id` ON `wheder`.`RPGWS_drd_characters` (`race_id` ASC) ;
+CREATE INDEX `idx_character_race_id` ON `wheder`.`RPGWS_drd_characters` (`race_id` ASC) ;
 
 SHOW WARNINGS;
-CREATE INDEX `idx_class_id` ON `wheder`.`RPGWS_drd_characters` (`class_id` ASC) ;
+CREATE INDEX `idx_character_class_id` ON `wheder`.`RPGWS_drd_characters` (`class_id` ASC) ;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_class_id` ON `wheder`.`RPGWS_drd_characters` (`class_id` ASC) ;
+CREATE INDEX `fk_character_class_id` ON `wheder`.`RPGWS_drd_characters` (`class_id` ASC) ;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_race_id` ON `wheder`.`RPGWS_drd_characters` (`race_id` ASC) ;
+CREATE INDEX `fk_character_race_id` ON `wheder`.`RPGWS_drd_characters` (`race_id` ASC) ;
+
+SHOW WARNINGS;
+CREATE UNIQUE INDEX `uq_owner_and_name` ON `wheder`.`RPGWS_drd_characters` (`owner_id` ASC, `name` ASC) ;
 
 SHOW WARNINGS;
 
@@ -362,7 +388,7 @@ CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_drd_quests` (
   PRIMARY KEY (`drd_quest_id`) ,
   CONSTRAINT `fk_game_master_id`
     FOREIGN KEY (`game_master_id` )
-    REFERENCES `wheder`.`RPGWS_users` (`user_id` )
+    REFERENCES `wheder`.`RPGWS_drd_players` (`drd_player_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -423,7 +449,7 @@ CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_drd_quest_posts` (
   `is_whisper` BIT NOT NULL ,
   `author_user_id` INT UNSIGNED NULL COMMENT 'aby bylo poznat kdo to napsal . . . jaky pj\n\njeste nevim jestli bude nebo nebude nullable' ,
   PRIMARY KEY (`drd_quest_post_id`) ,
-  CONSTRAINT `fk_posts_quest_id`
+  CONSTRAINT `fk_belongs_to_quest_id`
     FOREIGN KEY (`belongs_to_quest_id` )
     REFERENCES `wheder`.`RPGWS_drd_quests` (`drd_quest_id` )
     ON DELETE NO ACTION
@@ -435,7 +461,7 @@ CREATE  TABLE IF NOT EXISTS `wheder`.`RPGWS_drd_quest_posts` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_author_user_id`
     FOREIGN KEY (`author_user_id` )
-    REFERENCES `wheder`.`RPGWS_users` (`user_id` )
+    REFERENCES `wheder`.`RPGWS_drd_players` (`drd_player_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -447,7 +473,7 @@ SHOW WARNINGS;
 CREATE INDEX `idx_author_character_id` ON `wheder`.`RPGWS_drd_quest_posts` (`author_character_id` ASC) ;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_posts_quest_id` ON `wheder`.`RPGWS_drd_quest_posts` (`belongs_to_quest_id` ASC) ;
+CREATE INDEX `fk_belongs_to_quest_id` ON `wheder`.`RPGWS_drd_quest_posts` (`belongs_to_quest_id` ASC) ;
 
 SHOW WARNINGS;
 CREATE INDEX `fk_author_character_id` ON `wheder`.`RPGWS_drd_quest_posts` (`author_character_id` ASC) ;
