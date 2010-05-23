@@ -53,7 +53,8 @@ class Db_MySQLPDO implements Db_Abstract {
         {
             $msg = "Database query: '$sql' failed with error ";
             $msg .= $this->connection->errorCode() . ":\n";
-            $msg .=  var_dump($this->connection->errorInfo());
+            $errInfo =$this->connection->errorInfo(); 
+            $msg .=  $errInfo[2];
             throw new DbQueryException($msg, "DB Query failed", "DB Query failed", 1001);
         }
         

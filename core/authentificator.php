@@ -224,7 +224,7 @@ class Authentificator
         	FROM 
         	    " . $rpgws_config['db']['prefix'] . "login_log
         	WHERE 
-        	    time > DATE_SUB(NOW(), INTERVAL " . $rpgws_config['flood_prot']['time_limit'] . " SECOND ))
+        	    time > SUBTIME(NOW(), SEC_TO_TIME(" . $rpgws_config['flood_prot']['time_limit'] . "))
         	    AND user_id = " . $this->m_DB->quote($user_id) . "
         ";
         
