@@ -16,7 +16,6 @@ class User_Model
     private $mail;
     private $nick;
     private $pass;
-    private $unsucc_login;
     private $user_id;
 	private $last_action;
 	private $last_ip;
@@ -29,7 +28,6 @@ class User_Model
         $this->mail = "";
         $this->nick = "";
         $this->pass = "";
-        $this->unsucc_login = 0;
         $this->user_id = 0;
         $this->last_action = "";
         $this->last_ip = "";
@@ -129,11 +127,6 @@ class User_Model
         return $this->pass;
     }
 
-    public function getunsucc_login()
-    {
-        return $this->unsucc_login;
-    }
-
     public function getuser_id()
     {
         return $this->user_id;
@@ -169,7 +162,6 @@ class User_Model
         $this->mail = $result[0]['mail'];
         $this->nick = $result[0]['nick'];
         $this->pass = $result[0]['pass'];
-        $this->unsucc_login = $result[0]['unsuccessful_login_atempts'];
         $this->last_action = $result[0]['last_action'];
         $this->last_ip = $result[0]['ip'];
     }
@@ -194,7 +186,6 @@ class User_Model
         	    mail = " . $this->m_DB->quote($this->mail) . ",
         	    nick = " . $this->m_DB->quote($this->nick) . ",
         	    pass = " . $this->m_DB->quote($this->pass) . ",
-        	    unsuccessful_login_atempts = " . $this->m_DB->quote($this->unsucc_login) . ",
         	    last_action = " . $this->m_DB->quote($this->last_action) . ",
         	    last_ip = INET_ATON(" . $this->m_DB->quote($this->last_ip) . ")
         	WHERE
@@ -223,7 +214,6 @@ class User_Model
             	" . $this->m_DB->quote($this->mail) . ",
             	" . $this->m_DB->quote($this->nick) . ",
             	" . $this->m_DB->quote($this->pass) . ",
-            	" . $this->m_DB->quote($this->unsucc_login) . ",
             	" . $this->m_DB->quote($this->last_action) . ",
             	INET_ATON(" . $this->m_DB->quote($this->last_ip) . "))
         ";
@@ -296,15 +286,6 @@ class User_Model
     public function setpass($newVal)
     {
         $this->pass = $newVal;
-    }
-
-    /**
-     * 
-     * @param newVal
-     */
-    public function setunsucc_login($newVal)
-    {
-        $this->unsucc_login = $newVal;
     }
 
     /**
