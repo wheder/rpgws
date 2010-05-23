@@ -196,7 +196,7 @@ class User_Model
             RIGHT OUTER JOIN
                 " . $rpgws_config['db']['prefix'] . "user_detail_types AS detail_type
             USING
-                user_detail_type_id
+                (user_detail_type_id)
         ";
         
         $result = $this->m_DB->query($query);
