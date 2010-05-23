@@ -19,7 +19,8 @@ class User_Model
     private $user_id;
 	private $last_action;
 	private $last_ip;
-
+    private $extended;
+    
     function __construct()
     {
         $this->born = "";
@@ -135,10 +136,10 @@ class User_Model
     /**
      * Funkce nacte data o uzivateli z databaze
      *
-     * @param id
+     * @param int $id
      * @return void
      */
-    public function load(int $id)
+    public function load($id)
     {
         global $rpgws_config;
         if($id < 1) throw new UnexpectedUserIdException("Bylo pozadovano nacteni uzivatele s id = $id", "Neplatne ID", "Neplatne id uzivatele.", 2102);
@@ -164,6 +165,121 @@ class User_Model
         $this->pass = $result[0]['pass'];
         $this->last_action = $result[0]['last_action'];
         $this->last_ip = $result[0]['ip'];
+    }
+    
+    /**
+     * Funkce nacte detaily uctu z DB
+     * @param int $id
+     * @return void
+     */
+    private function load_extended($id)
+    {
+        global $rpgws_config;
+        if($id < 1) throw new UnexpectedUserIdException("Bylo pozadovano nacteni uzivatele s id = $id", "Neplatne ID", "Neplatne id uzivatele.", 2102);
+        
+        $query = "
+            SELECT
+                detail_type.name,
+                detail_type.user_detail_type_id,
+                COALESCE(detail.value, '') AS value,
+                COALESCE(detail.public, 0) AS public,  
+            FROM
+                (SELECT
+                    *
+                 FROM 
+                     " . $rpgws_config['db']['prefix'] . "user_detail
+                 WHERE
+                     user_id = " . $this->m_DB->quote($id) . "
+                 ) AS detail
+            RIGHT OUTER JOIN
+                " . $rpgws_config['db']['prefix'] . "user_detail_types AS detail_type
+            USING
+                user_detail_type_id
+        ";
+        
+        $result = $this->m_DB->query($query);
+        
+        if($this->m_DB->num_rows() < 1) return;
+        
+        foreach($result as $row)
+        {
+            $this->extended[$row['name']] = $row;
+        }
+    }
+    
+    /**
+     * Metoda pro ulozeni detailu do DB 
+     * @return void
+     */
+    private function save_extended()
+    {
+        global $rpgws_config;
+        if($this->user_id < 1) throw new UnexpectedUserIdException("Bylo pozadovano nacteni uzivatele s id = $id", "Neplatne ID", "Neplatne id uzivatele.", 2102);
+        
+        $query = "
+            INSERT INTO
+                " . $rpgws_config['db']['prefix'] . "user_detail
+                (user_id, user_detail_type_id, value, public)
+            VALUES";
+        $sep = "";
+        foreach($this->extended as $row) {
+            if(!empty($row['value'])) {
+                $query .=  "$sep
+                    (
+                        " . $this->m_DB->quote($this->user_id) . ",
+                        " . $this->m_DB->quote($row['user_detail_type_id']) . ",
+                        " . $this->m_DB->quote($row['value']) . ",
+                        " . $this->m_DB->quote($row['public']) . "
+                    )
+                ";
+                $sep = ",";
+            }
+        }
+        $query .= "
+            ON DUPLICATE KEY UPDATE
+                value = VALUES(value),
+                public = VALUES(public)
+        ";
+
+        $this->m_DB->query($query);
+    }
+    
+    /**
+     * Metoda vracejici seznam moznych detailu
+     * @return array
+     */
+    public function get_detail_types()
+    {
+        $result = array();
+        
+        foreach($this->extended as $row) {
+            array_push($result, $row['name']);
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Metoda nastavi predany detail
+     * @param string $name
+     * @param string $value
+     * @return void
+     */
+    public function set_detail($name, $value) {
+        if(!isset($this->extended[$name])) throw new DetailDoesntExistsException("Modul se pokusil nastavit uživatelský detail $name, který neexistuje.", "Detail neexistuje.", "Uživatelský detail $name neexistuje.", 6101);
+        
+        $this->extended[$name]['value'] = $value;
+    }
+    
+    /**
+     * Metoda ziska uzivatelsky detail
+     * @param string $name
+     * @return string
+     */
+    public function get_detail($name) {
+        if(!isset($this->extended[$name])) throw new DetailDoesntExistsException("Modul se pokusil přečíst uživatelský detail $name, který neexistuje.", "Detail neexistuje.", "Uživatelský detail $name neexistuje.", 6102);
+        
+        return $this->extended[$name]['value'];
     }
 
     /**
