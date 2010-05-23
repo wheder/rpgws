@@ -206,7 +206,7 @@ class User_Model
         $query = "
             INSERT INTO
                 " . $rpgws_config['db']['prefix'] . "users
-                (born, confirmed, deleted, mail, nick, pass, unsuccessful_login_attempts, last_action, last_ip)
+                (born, confirmed, deleted, mail, nick, pass, last_action, last_ip)
             VALUES(
             	" . $this->m_DB->quote($this->born) . ",
             	" . $this->m_DB->quote(($this->confirmed ? 1 : 0)) . ",
