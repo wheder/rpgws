@@ -186,8 +186,6 @@ class Authentificator
             if($result['deleted'] > 0)
                 throw new DeletedAccountException("Pokus o prihlaseni na smazanou postavu $username.", "Účet smazán", "Přihlášení se nepodařilo, účet byl smazán.", 2003);
             
-            if($result['confirmed'] == 0)
-                throw new NotConfirmedException("Pokus o prihlaseni na neschvaleny ucet $username.", "Účet nebyl schválen", "Přihlášení selhalo, jelikož účet nebyl schválen.", 2004);
         } catch (Exceptions $ex) {
             $this->do_log($result['user_id'], false);
             throw $ex;
