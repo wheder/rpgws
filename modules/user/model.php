@@ -184,7 +184,7 @@ class User_Model
                 detail_type.name,
                 detail_type.user_detail_type_id,
                 COALESCE(detail.value, '') AS value,
-                COALESCE(detail.public, 0) AS public,  
+                COALESCE(detail.public, 0) AS public
             FROM
                 (SELECT
                     *
