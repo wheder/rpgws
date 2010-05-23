@@ -37,7 +37,7 @@ class Db_MySQLPDO implements Db_Abstract {
 
     public function num_rows()
     {
-        return $this->num_rows();
+        return $this->num_rows;
     }
 
     /**
