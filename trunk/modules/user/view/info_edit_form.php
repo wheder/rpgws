@@ -18,7 +18,7 @@ if($this->err)
     Nové heslo (znovu pro kontrolu): <input type="password" name="newpass2" maxlength="<?php echo $this->pass_max ?>"/><br />
     <br />
 </p>
-<?php if(!empty($this->field)) {
+<?php if(!empty($this->field)) { ?>
     Nepovinné údaje:<br />
     <table>
     <tr>
