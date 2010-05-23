@@ -24,6 +24,22 @@ class User_Info_Controller implements ControllerInterface
 
 	public function edit_action()
 	{
+	    $this->m_View->err = false;
+	    $user_id = $this->auth->logged_user();
+	    if($user_id < 1) {
+	        $this->m_View->err = true;
+	        $this->m_View->msg = "Nejste přihlášen.";
+	        $this->m_View->printPage();
+	        return;
+	    }
+
+	    $user = new User_Model;
+	    $user->load($user_id);
+	        
+	    $nick = $this->m_Request->get_param("nick", $this->config['nick']['maxlength']);
+	    $oldpass = $this->m_Request->get_param("oldpass", $this->config['password']['maxlength']);
+	    $newpass = $this->m_Request->get_param("newpass", $this->config['password']['maxlength']);
+	    $newpass2 = $this->m_Request->get_param("newpass2", $this->config['password']['maxlength']);
 	    
 	}
 
@@ -35,6 +51,8 @@ class User_Info_Controller implements ControllerInterface
 	        $this->m_View->err = true;
 	        $this->m_View->msg = "Nejste přihlášen.";
 	    } else {
+	        $this->m_View->nick_max = $this->config['nick']['maxlength'];
+	        $this->m_View->pass_max = $this->config['password']['maxlength'];
 	        $user = new User_Model();
 	        $user->load($user_id);
 	        $this->m_View->user = $user;

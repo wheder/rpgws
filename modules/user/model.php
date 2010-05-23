@@ -165,6 +165,8 @@ class User_Model
         $this->pass = $result[0]['pass'];
         $this->last_action = $result[0]['last_action'];
         $this->last_ip = $result[0]['ip'];
+        
+        $this->load_extended($this->user_id);
     }
     
     /**
@@ -359,6 +361,7 @@ class User_Model
             $this->insert();
         } else {
             $this->update();
+            $this->save_extended();
         } 
     }
 

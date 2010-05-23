@@ -17,6 +17,7 @@ if($this->err)
     Nové heslo: <input type="password" name="newpass" maxlength="<?php echo $this->pass_max ?>"/><br />
     Nové heslo (znovu pro kontrolu): <input type="password" name="newpass2" maxlength="<?php echo $this->pass_max ?>"/><br />
     <br />
+</p>
     Nepovinné údaje:<br />
     <table>
     <tr>
@@ -24,7 +25,8 @@ if($this->err)
     	<th>Hodnota</th>
     	<th>Veřejný</th>
     </tr>
-   <?php foreach($this->field as $field) {
+<?php if($this->field != null) {
+   foreach($this->field as $field) {
        echo "    <tr>\n";
        echo "        <td>$field:</td>\n";
        echo "        <td><input type=\"text\" name=\"$field\" value=\"" . $this->user->get_detail($field) . "\" /></td>";
@@ -32,8 +34,10 @@ if($this->err)
        if($this->user->is_public($field)) echo " checked=\"checked\"";
        echo " value=\"1\"></td>\n";
        echo "    </tr>\n"; 
-   }?>
+   }
+}?>
    </table>
+<p>
    <br />
    <input type="submit" value="Odeslat" />
 </p>
