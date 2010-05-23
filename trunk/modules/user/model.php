@@ -252,10 +252,12 @@ class User_Model
      */
     public function get_detail_types()
     {
-        $result = array();
         
-        foreach($this->extended as $row) {
-            array_push($result, $row['name']);
+        $result = array();
+        if(!empty($this->extended)) {
+            foreach($this->extended as $row) {
+                array_push($result, $row['name']);
+            }
         }
         
         return $result;
