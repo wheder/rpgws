@@ -28,9 +28,8 @@ class User_Mailer
 	 */
 	public function sendMail(User_Model $user, $subject, $content)
 	{
-	    $header = "To: " . $user->mail . "\r\n";
-	    $header .= "From: " . $this->from . "\r\n";
-	    $header .= "Reply: " . $this->reply . "\r\n";
+	    $header = "From: " . $this->from . "\n";
+	    $header .= "Reply: " . $this->reply . "\n";
 	    $header .= "X-Mailer: PHP/" . phpversion();
 	    
 	    mail($user->mail, $subject, $content, $header);
