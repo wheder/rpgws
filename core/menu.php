@@ -15,12 +15,16 @@ class Menu
      */
 	final public function get_core_menu()
 	{
+	    $auth = new Authentificator();
+	    $logged = $auth->logged_user();
 	    $result = array();
 	    $result['Home'] = '/';
 	    $result['Registrace'] = '/user/registration/show_form';
-	    $result['Login'] = '/user/login/form';
-	    $result['Logout'] = '/user/login/logout';
-	    
+	    if($logged < 1) {
+	        $result['Login'] = '/user/login/form';
+	    } else {
+	        $result['Logout'] = '/user/login/logout';
+	    }
 	    return $result;
 	}
 
