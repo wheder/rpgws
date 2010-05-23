@@ -64,6 +64,11 @@ class User_Info_Controller implements ControllerInterface
 	public function show_info_action()
 	{
 	}
+	
+	public function index_action()
+	{
+	    header("location: /user/info/show_info");
+	}
 
 }
 ?>
