@@ -113,6 +113,7 @@ class Authentificator
         $result = $result[0];
         
         if($_SERVER['REMOTE_ADDR'] != $result['ip']) return false;
+	return true;
     }
 
     /**
