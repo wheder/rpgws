@@ -31,7 +31,7 @@ class User_Model
         $this->pass = "";
         $this->user_id = 0;
         $this->last_action = "";
-        $this->last_ip = "";
+        $this->last_ip = "0.0.0.0";
         $this->m_DB = DB::get();
     }
 

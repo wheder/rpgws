@@ -31,7 +31,7 @@ if($this->err)
        echo "    <tr>\n";
        echo "        <td>$field:</td>\n";
        echo "        <td><input type=\"text\" name=\"$field\" value=\"" . $this->user->get_detail($field) . "\" /></td>";
-       echo "        <td><input type=\"checkbox\" name=\"public[$field]\"";
+       echo "        <td><input type=\"checkbox\" name=\"public_$field\"";
        if($this->user->is_public($field)) echo " checked=\"checked\"";
        echo " value=\"1\"></td>\n";
        echo "    </tr>\n"; 
