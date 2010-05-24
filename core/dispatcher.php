@@ -58,7 +58,7 @@ class Dispatcher implements DispatcherInterface
             $this->m_View->code = $ex->getCode();
             $this->m_View->head = $ex->get_header();
             $this->m_View->message = $ex->get_info();
-            $this->m_View->debug_info = $ex->__toString();
+            $this->m_View->debug_info = $ex->getMessage();
             
             $this->m_View->set_layout(RPGWS_LAYOUT_PATH . "/" . $rpgws_config['layout']['default']);
             $this->m_View->set_content(RPGWS_VIEW_PATH . "/" . $rpgws_config['view']['error']);
