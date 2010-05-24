@@ -159,7 +159,8 @@ class User_Info_Controller implements ControllerInterface
         $query = "
         	SELECT
         	    nick,
-        	    COALESCE(last_action, 'offline') AS action
+        	    COALESCE(UNIX_TIMESTAMP(last_action), 0) AS action,
+        	    UNIX_TIMESTAMP(NOW()) AS time;
         	FROM
         	    " . $rpgws_config['db']['prefix'] . "users
         ";

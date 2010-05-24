@@ -18,7 +18,15 @@ if($this->err)
 <?php foreach($this->users as $user) {?>
   <tr>
     <td><?php echo $user['nick'] ?></td>
-    <td><?php echo $user['action'] ?></td>
+    <td>
+<?php 
+if($user['action'] + session_cache_expire()*60 < $user['time']) {
+    echo date("H:i:s", $user['action']);
+} else {
+    echo "offline";
+}
+?>  
+     </td>
     <td><a href="/user/info/show_user/<?php echo $user['nick']?>">Zobrazit</a></td>
   </tr>
 <?php } ?>
