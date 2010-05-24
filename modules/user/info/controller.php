@@ -153,14 +153,15 @@ class User_Info_Controller implements ControllerInterface
 
     public function show_list_action()
     {
+        global $rpgws_config;
         $this->m_View->err = false;
         $db = Db::get();
         $query = "
         	SELECT
         	    nick,
-        	    COALESCE(last_action, 'offline') AS action,
+        	    COALESCE(last_action, 'offline') AS action
         	FROM
-        	    users
+        	    " . $rpgws_config['db']['prefix'] . "users
         ";
         
         $this->m_View->users = $db->query($query);
