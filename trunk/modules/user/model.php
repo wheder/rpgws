@@ -216,6 +216,7 @@ class User_Model
                 (user_detail_type_id)
         ";
         
+	//var_dump($query);
         $result = $this->m_DB->query($query);
         
         if($this->m_DB->num_rows() < 1) return;
@@ -248,7 +249,7 @@ class User_Model
                         " . $this->m_DB->quote($this->user_id) . ",
                         " . $this->m_DB->quote($row['user_detail_type_id']) . ",
                         " . $this->m_DB->quote($row['value']) . ",
-                        " . $this->m_DB->quote($row['public']) . "
+                        b" . $this->m_DB->quote($row['public']) . "
                     )
                 ";
                 $sep = ",";
@@ -311,7 +312,7 @@ class User_Model
     public function is_public($name)
     {
         if(!isset($this->extended[$name])) throw new DetailDoesntExistsException("Modul se pokusil přečíst uživatelský detail $name, který neexistuje.", "Detail neexistuje.", "Uživatelský detail $name neexistuje.", 6102);
-        
+
         return ($this->extended[$name]['public'] == 1);
     }
     

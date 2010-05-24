@@ -10,7 +10,7 @@ if($this->err)
 <h3>Informace o uzivateli <?php echo $this->user->nick; ?></h3>
 
 <?php if(empty($this->details)) {?>
-<p>Uživatel nepovolil zobrazení žádných informací, nebo je nemá nastavené.</p>;
+<p>Uživatel nepovolil zobrazení žádných informací, nebo je nemá nastavené.</p>
 <?php } else {?>
 <table>
   <tr>
