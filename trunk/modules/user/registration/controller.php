@@ -64,15 +64,17 @@ class User_Registration_Controller implements ControllerInterface
 	        return;
 	    }
 	    
-	    $date = new DateTime();
-	    if(!$date->setDate($year, $month, $day))
+            $date = "$year-$month-$day";
+            ///@TODO je treba to nejak poradne osetrit, ... will fix later
+	    /*
+            if(!$date->setDate($year, $month, $day))
 	    {
-	        $this->m_View->err = true;
+                $this->m_View->err = true;
 	        $this->m_View->msg = "Neplatné datum narození.";
 	        $this->m_View->printPage();
 	        return;
 	    }
-	    
+	    */
 	    $user = new User_Model();
 	    $user->nick = $nick;
 	    $user->mail = $mail;

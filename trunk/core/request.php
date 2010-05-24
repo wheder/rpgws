@@ -68,7 +68,7 @@ class Request
     }
     public function get_param_int($name)
     {
-        return (int) $this->get_uri_float($name);
+        return (int) $this->get_param_float($name);
     }
     public function get_param_id($name)
     {
