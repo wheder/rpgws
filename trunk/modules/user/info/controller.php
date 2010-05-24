@@ -41,7 +41,7 @@ class User_Info_Controller implements ControllerInterface
 	    $newpass = $this->m_Request->get_param("newpass", $this->config['password']['maxlength']);
 	    $newpass2 = $this->m_Request->get_param("newpass2", $this->config['password']['maxlength']);
 	    
-	    if(isset($oldpass))
+	    if(!empty($oldpass))
 	    {
 	        $hash = sha1($user->nick . ":" . $oldpass);
 	        if($hash != $user->pass) 
@@ -107,7 +107,8 @@ class User_Info_Controller implements ControllerInterface
         $logged = $this->auth->logged_user();
         $this->m_View->err = false;
         $nick = $this->m_Request->get_uri_string();
-        if($nick === null) {
+
+        if(empty($nick)) {
             $this->m_View->err = true;
             $this->m_View->msg = "Nevybral jste zadneho uzivatele";
             $this->m_View->printPage();
@@ -123,8 +124,9 @@ class User_Info_Controller implements ControllerInterface
         $details = array();
         foreach($fields as $field)
         {
-            if(($logged > 0 || $user->is_public($field)) && !empty($user->get_detail($field))){
-                $details[$field] = $user->get_detail($field);
+	    $detail = $user->get_detail($field);
+            if(($logged > 0 || $user->is_public($field)) && !empty($detail)){
+                $details[$field] = $detail;
             }
         }
         $this->m_View->details = $details;
