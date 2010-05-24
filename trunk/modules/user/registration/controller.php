@@ -78,7 +78,7 @@ class User_Registration_Controller implements ControllerInterface
 	    $user = new User_Model();
 	    $user->nick = $nick;
 	    $user->mail = $mail;
-	    $user->born = $date->format("Y-m-d");
+	    $user->born = $date;//->format("Y-m-d");
 	    $pass = $user->generate_password($this->config['password']['generated_length']);
 	    $user->pass = sha1($nick . ":" . $pass);
 	    $user->last_ip = $_SERVER['REMOTE_ADDR'];
