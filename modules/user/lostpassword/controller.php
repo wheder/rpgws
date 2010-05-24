@@ -47,7 +47,9 @@ class User_LostPassword_Controller implements ControllerInterface
         $nick = $this->m_Request->get_param("nick", $this->config['nick']['maxlength']);
         $mail = $this->m_Request->get_param("mail", $this->config['mail']['maxlength']);
         $day = $this->m_Request->get_param_int("day");
+	if(strlen($day) == 1) $day = '0' . $day;
         $month = $this->m_Request->get_param_int("month");
+	if(strlen($month) == 1) $month = '0' . $month;
         $year = $this->m_Request->get_param_int("year");
         $date = "$year-$month-$day";
         if(strlen($nick) < $this->config['nick']['minlength']) 
@@ -76,7 +78,11 @@ class User_LostPassword_Controller implements ControllerInterface
             return;
         }
         
-        if($born != $user->born || $mail != $user->mail)
+	var_dump($user->born);
+	var_dump($user->mail);
+	var_dump($date);
+	var_dump($mail);
+        if($date != $user->born || $mail != $user->mail)
         {
             $this->m_View->err = true;
             $this->m_View->msg = "Zadané údaje nejsou správné.";
