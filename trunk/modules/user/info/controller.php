@@ -79,6 +79,9 @@ class User_Info_Controller implements ControllerInterface
 	        }
 	    }
 	    $user->save();
+	    $this->m_View->err = false;
+	    $this->m_View->msg = "Úspěšně uloženo.";
+	    $this->m_View->printPage();
 	}
 
 	public function edit_form_action()
