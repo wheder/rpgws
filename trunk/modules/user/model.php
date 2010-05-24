@@ -325,7 +325,7 @@ class User_Model
             UPDATE
         	    " . $rpgws_config['db']['prefix'] . "users
         	SET
-        	    born = " . $this->m_DB->quote($this->born) . "
+        	    born = " . $this->m_DB->quote($this->born) . ",
         	    confirmed = " . $this->m_DB->quote(($this->confirmed ? 1 : 0)) . ",
         	    deleted = " . $this->m_DB->quote(($this->deleted ? 1 : 0)) . ",
         	    mail = " . $this->m_DB->quote($this->mail) . ",
