@@ -19,10 +19,12 @@ class Menu
 	    $logged = $auth->logged_user();
 	    $result = array();
 	    $result['Home'] = '/';
-	    $result['Registrace'] = '/user/registration/show_form';
+	    $result['Seznam Hráčů'] = '/user/info/show_list';
 	    if($logged < 1) {
+                $result['Registrace'] = '/user/registration/show_form';
 	        $result['Login'] = '/user/login/form';
 	    } else {
+	        $result['Upravit údaje'] = '/user/info/edit_form';
 	        $result['Logout'] = '/user/login/logout';
 	    }
 	    return $result;
