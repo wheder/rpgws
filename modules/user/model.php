@@ -242,8 +242,10 @@ class User_Model
                 (user_id, user_detail_type_id, value, public)
             VALUES";
         $sep = "";
+        $cnt = 0;
         foreach($this->extended as $row) {
             if(!empty($row['value'])) {
+                $cnt++;
                 $query .=  "$sep
                     (
                         " . $this->m_DB->quote($this->user_id) . ",
@@ -261,7 +263,7 @@ class User_Model
                 public = VALUES(public)
         ";
 
-        $this->m_DB->query($query);
+        if($cnt > 0) $this->m_DB->query($query);
     }
     
     /**
