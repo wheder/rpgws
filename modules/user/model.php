@@ -137,21 +137,38 @@ class User_Model
      * Funkce nacte data o uzivateli z databaze
      *
      * @param int $id
+     * @param string $username
      * @return void
      */
-    public function load($id)
+    public function load($id, $username = null)
     {
         global $rpgws_config;
-        if($id < 1) throw new UnexpectedUserIdException("Bylo pozadovano nacteni uzivatele s id = $id", "Neplatne ID", "Neplatne id uzivatele.", 2102);
-        $query = "
-            SELECT 
-                *,
-                INET_NTOA(last_ip) AS ip
-            FROM
-                " . $rpgws_config['db']['prefix'] . "users
-            WHERE
-                user_id = " . $this->m_DB->quote($id) . " 
-        ";
+        if(!isset($username) && $id < 1) throw new UnexpectedUserIdException("Bylo pozadovano nacteni uzivatele s id = $id", "Neplatne ID", "Neplatne id uzivatele.", 2102);
+        
+        if(!isset($username))
+        {
+            $query = "
+                SELECT 
+                    *,
+                    INET_NTOA(last_ip) AS ip
+                FROM
+                    " . $rpgws_config['db']['prefix'] . "users
+                WHERE
+                    user_id = " . $this->m_DB->quote($id) . " 
+            ";
+        }
+        else
+        {
+            $query = "
+                SELECT 
+                    *,
+                    INET_NTOA(last_ip) AS ip
+                FROM
+                    " . $rpgws_config['db']['prefix'] . "users
+                WHERE
+                    nick = " . $this->m_DB->quote($username) . " 
+            ";
+        }
         
         $result = $this->m_DB->query($query);
         if($this->m_DB->num_rows() < 1) throw new NonExistUserException("Uzivatel s id $id neni v DB.", "Uzivatel neexistuje", "Uzivatel s id $id neexistuje.", 2001);
