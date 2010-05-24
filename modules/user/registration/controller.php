@@ -28,6 +28,10 @@ class User_Registration_Controller implements ControllerInterface
 	{
 	    $nick = $this->m_Request->get_param("nick", $this->config['nick']['maxlength']);
 	    $mail = $this->m_Request->get_param("mail", $this->config['mail']['maxlength']);
+	    $day = $this->m_Request->get_param_int("day");
+	    $month = $this->m_Request->get_param_int("month");
+	    $year = $this->m_Request->get_param_int("year");
+	    
 	    if(strlen($nick) < $this->config['nick']['minlength']) 
 	    {
 	        $this->m_View->err = true;
@@ -60,9 +64,19 @@ class User_Registration_Controller implements ControllerInterface
 	        return;
 	    }
 	    
+	    $date = new DateTime();
+	    if(!$date->setDate($year, $month, $day))
+	    {
+	        $this->m_View->err = true;
+	        $this->m_View->msg = "Neplatné datum narození.";
+	        $this->m_View->printPage();
+	        return;
+	    }
+	    
 	    $user = new User_Model();
 	    $user->nick = $nick;
 	    $user->mail = $mail;
+	    $user->born = $date->format("Y-m-d");
 	    $pass = $user->generate_password($this->config['password']['generated_length']);
 	    $user->pass = sha1($nick . ":" . $pass);
 	    $user->last_ip = $_SERVER['REMOTE_ADDR'];
