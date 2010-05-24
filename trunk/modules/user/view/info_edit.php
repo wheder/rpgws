@@ -2,11 +2,11 @@
 if($this->err)
 {
 ?>
-<h3>Nepodařilo se registrovat nový účet.</h3>
+<h3>Nepodařilo se změnit údaje.</h3>
 <?php 
 } else {
 ?>
-<h3>Účet registrován.</h3>
+<h3>Údaje změněny.</h3>
 <?php
 }
 ?>
