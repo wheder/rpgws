@@ -8,10 +8,8 @@ if($this->err)
 } else {
 ?>
 
-<form action="user/info/edit" method="post">
+<form action="/user/info/edit" method="post">
 <p>
-    Nick: <input type="text" name="nick" maxlength="<?php echo $this->nick_max; ?>" value="<?php echo $this->user->nick;?>"/><br />
-    <br />
     Změna hesla:<br />
     Staré heslo: <input type="password" name="oldpass" maxlength="<?php echo $this->pass_max; ?>"/><br />
     Nové heslo: <input type="password" name="newpass" maxlength="<?php echo $this->pass_max ?>"/><br />
