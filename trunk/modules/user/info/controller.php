@@ -151,13 +151,32 @@ class User_Info_Controller implements ControllerInterface
         $this->m_View = $view;
     }
 
-    public function show_info_action()
+    public function show_list_action()
     {
+        $this->m_View->err = false;
+        $db = Db::get();
+        $query = "
+        	SELECT
+        	    nick,
+        	    COALESCE(last_action, 'offline') AS action,
+        	FROM
+        	    users
+        ";
+        
+        $this->m_View->users = $db->query($query);
+
+        if($db->num_rows() < 1) 
+        {
+            $this->m_View->err = true;
+            $this->m_View->msg = "V databázi nejsou žádní uživatelé.";
+        }
+        
+        $this->m_View->printPage();
     }
     
     public function index_action()
     {
-        header("location: /user/info/show_info");
+        header("location: /user/info/show_list");
     }
 
 }
