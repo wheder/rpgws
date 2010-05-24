@@ -16,8 +16,8 @@
     </select>
     Rok: <select name="year">
     	<?php
-    	   $year_end = date("Y", now());
-    	   for($i = 1930; $i < 13; $i++) {	?>
+    	   $year_end = date("Y", time());
+    	   for($i = 1930; $i <= $year_end; $i++) {	?>
     	   <option value="<?php echo $i; ?>"><?php echo $i;?></option>
     	<?php } ?>
     </select><br />
