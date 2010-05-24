@@ -160,7 +160,7 @@ class User_Info_Controller implements ControllerInterface
         	SELECT
         	    nick,
         	    COALESCE(UNIX_TIMESTAMP(last_action), 0) AS action,
-        	    UNIX_TIMESTAMP(NOW()) AS time;
+        	    UNIX_TIMESTAMP(NOW()) AS time
         	FROM
         	    " . $rpgws_config['db']['prefix'] . "users
         ";
