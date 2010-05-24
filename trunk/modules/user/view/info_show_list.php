@@ -20,7 +20,7 @@ if($this->err)
     <td><?php echo $user['nick'] ?></td>
     <td>
 <?php 
-if($user['action'] + session_cache_expire()*60 >= $user['time']) {
+if($user['action'] + ini_get("session.gc_maxlifetime") >= $user['time']) {
     echo date("H:i:s", $user['action']);
 } else {
     echo "offline";
