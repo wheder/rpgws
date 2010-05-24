@@ -108,6 +108,11 @@ class User_LostPassword_Controller implements ControllerInterface
         $this->mail_max = $this->config['mail']['maxlength'];
         $this->m_View->printPage();
     }
+    
+    public function index_action()
+    {
+        header("location: /user/lostpassword/show_form");
+    }
 
 }
 ?>
