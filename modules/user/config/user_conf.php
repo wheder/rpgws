@@ -20,4 +20,5 @@ $user_config['mail']['regexp']['content'] = '/^[^@]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$
 $user_config['mailer']['from'] = "no-reply@wheder.info";
 $user_config['mailer']['reply'] = "no-reply@wheder.info";
 $user_config['mailer']['new_reg_subject'] = "Registrace na wheder.info";
+$user_config['mailer']['lost_pass_subject'] = "Vase heslo na wheder.info";
 ?>
