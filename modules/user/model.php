@@ -301,7 +301,7 @@ class User_Model
      * @return string
      */
     public function get_detail($name) {
-        if(!isset($this->extended[$name])) throw new DetailDoesntExistsException("Modul se pokusil přečíst uživatelský detail $name, který neexistuje.", "Detail neexistuje.", "Uživatelský detail $name neexistuje.", 6102);
+        if(!isset($this->extended[$name])) throw new DetailDoesntExistsException("Modul se pokusil přečíst uživatelský detail $name, který neexistuje.", "Detail neexistuje.", "Uživatelský detail $name neexistuje.", 6101);
         
         return $this->extended[$name]['value'];
     }
@@ -313,7 +313,7 @@ class User_Model
      */
     public function is_public($name)
     {
-        if(!isset($this->extended[$name])) throw new DetailDoesntExistsException("Modul se pokusil přečíst uživatelský detail $name, který neexistuje.", "Detail neexistuje.", "Uživatelský detail $name neexistuje.", 6102);
+        if(!isset($this->extended[$name])) throw new DetailDoesntExistsException("Modul se pokusil přečíst uživatelský detail $name, který neexistuje.", "Detail neexistuje.", "Uživatelský detail $name neexistuje.", 6101);
 
         return ($this->extended[$name]['public'] == 1);
     }
