@@ -53,7 +53,7 @@ class Request
     }
     public function get_uri_id()
     {
-        return abs($this->get_uri_int());
+        return $this->get_id_from_val($this->get_uri_int());
     }
     public function get_uri_string()
     {
@@ -72,7 +72,7 @@ class Request
     }
     public function get_param_id($name)
     {
-        return abs($this->get_param_int($name));
+        return $this->get_id_from_val($this->get_param_int($name));
     }
     public function get_param($name, $limit=null)
     {
@@ -83,7 +83,10 @@ class Request
         }
         return $val;
     }
-    
+    private function get_id_from_val($val) {
+        if ($val == 0) return null;
+        return abs((int)$val);
+    }
     
     /**
      * Metoda ziska z poslanych hodnot retezec podle predaneho jmena.
