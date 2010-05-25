@@ -10,7 +10,6 @@ class User_Dispatcher implements DispatcherInterface
     private $m_View;
 	function __construct()
 	{
-	    $this->m_Request = null;
 	    $this->m_View = null;
 	}
 
