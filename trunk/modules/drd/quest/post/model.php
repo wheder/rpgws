@@ -320,7 +320,7 @@ class DrD_Quest_Post_Model
                 " . self::$m_DB->quote($this->author_user) . ",
                 " . self::$m_DB->quote($this->content) . ",
                 " . self::$m_DB->quote($this->quest_id) . ",
-                " . self::$m_DB->quote($this->time) . ",
+                NOW(),
                 " . $whisp . ")
         ";
         
