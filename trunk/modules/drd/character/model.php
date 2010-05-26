@@ -206,7 +206,7 @@ class DrD_Character_Model
      * @param int $id
      * @return DrD_Character_Model
      */
-    public function load($id)
+    public static function load($id)
     {
         if($id < 1) throw new UnexpectedCharacterIdException("Nelze nacist postavu, jelikoz jeji ID neni platne.", "Neplatné id postavy", "Neplatné id postavy.", 6205);
         if(self::$m_DB === null) self::$m_DB = Db::get();
