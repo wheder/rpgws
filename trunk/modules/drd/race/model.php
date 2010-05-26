@@ -214,10 +214,10 @@ class DrD_Race_Model
     /**
      * Privatni metoda pro vlozeni nove rasy do DB
      * 
-     * @access private
+     * @access protected
      * @return void
      */
-    private function insert()
+    protected function insert()
     {
         global $rpgws_config;
         $query = "
@@ -230,15 +230,16 @@ class DrD_Race_Model
         ";
         
         self::$m_DB->query($query);
+        $this->race_id = self::$m_DB->last_insert_id();
     }
     
     /**
      * Privatni metoda pro update rasy v DB
      *
-     * @access private
+     * @access protected
      * @return void
      */
-    private function update()
+    protected function update()
     {
         global $rpgws_config;
         $query = "

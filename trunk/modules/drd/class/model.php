@@ -247,10 +247,10 @@ class DrD_Class_Model
     /**
      * Privatni metoda pro insert tridy do databaze
      * 
-     * @access private
+     * @access protected
      * @return void
      */
-    private function insert()
+    protected function insert()
     {
         global $rpgws_config;
         
@@ -266,15 +266,16 @@ class DrD_Class_Model
         ";
         
         self::$m_DB->query($query);
+        $this->class_id = self::$m_DB->last_insert_id();
     }
     
     /**
      * Privatni metoda pro update tridy v db
      * 
-     * @access private
+     * @access protected
      * @return void
      */
-    private function update()
+    protected function update()
     {
         $parent = ($this->parent === null ? 0 : $this->parent->class_id);
         global $rpgws_config;
