@@ -417,6 +417,7 @@ class DrD_Character_Model
         ";
         
         self::$m_DB->query($query);
+        $this->character_id = self::$m_DB->last_insert_id();
         $this->save_quests();
     }
     

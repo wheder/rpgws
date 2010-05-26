@@ -354,6 +354,7 @@ class DrD_Quest_Model
         ";
         
         self::$m_DB->query($query);
+        $this->quest_id = self::$m_DB->last_insert_id();
     }
     
     /**
