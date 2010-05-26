@@ -11,7 +11,7 @@ class DrD_Race_Model
     private $description;
     private $name;
     private $race_id;
-    private static $m_DB;
+    private static $m_DB = null;
     private static $loaded = array();
 
     function __construct()
@@ -103,8 +103,9 @@ class DrD_Race_Model
      */
     public static function load($id)
     {
+        if($id < 1) throw new UnexpectedRaceIdException("Nelze nacist rasu, jelikoz jeji ID neni platne.", "Neplatné id rasy", "Neplatné id rasy.", 6203);
         if(isset(self::$loaded[$id])) return self::$loaded[$id];
-        
+        if(self::$m_DB === null) self::$m_DB = Db::get();
         global $rpgws_config;
         $query = "
             SELECT
@@ -132,6 +133,29 @@ class DrD_Race_Model
 
     public static function load_all()
     {
+        if(self::$m_DB === null) self::$m_DB = Db::get();
+        global $rpgws_config;
+        $query = "
+            SELECT
+                *
+            FROM
+                " . $rpgws_config['db']['prefix'] . "drd_races
+        ";
+        
+        $result = self::$m_DB->query($query);
+        if(self::$m_DB->num_rows < 1) return null;
+        
+        foreach($result as $row) 
+        {
+            $race = new self();
+            $race->race_id = $row['drd_races_id'];
+            $race->description = $row['description'];
+            $race->name = $row['name'];
+            self::$loaded[$race->race_id] = $race;
+            self::$loaded[$race->name] = $race; 
+        }
+                
+        return self::$loaded;
     }
 
     /**
@@ -143,6 +167,7 @@ class DrD_Race_Model
     public static function load_by_name($name)
     {
         if(isset(self::$loaded[$name])) return self::$loaded[$name];
+        if(self::$m_DB === null) self::$m_DB = Db::get();
         
         global $rpgws_config;
         $query = "

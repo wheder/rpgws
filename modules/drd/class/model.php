@@ -109,6 +109,7 @@ class DrD_Class_Model
      */
     public static function load($id)
     {
+        if($id < 1) throw new UnexpectedClassIdException("Nelze nacist povolani, jelikoz jeho ID neni platne.", "Neplatné id povolani", "Neplatné id povolani.", 6201);
         global $rpgws_config;
         if(isset(self::$loaded[$id])) return self::$loaded[$id];
         
@@ -160,7 +161,7 @@ class DrD_Class_Model
         
         $result = self::$m_DB->query($query);
         
-        if(self::$m_DB->num_rows < 1) return;
+        if(self::$m_DB->num_rows < 1) return null;
         
         $parents = array();
         foreach($result as $row) 
