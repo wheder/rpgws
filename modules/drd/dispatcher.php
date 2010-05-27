@@ -46,7 +46,7 @@ class DrD_Dispatcher implements DispatcherInterface
         $view_file = dirname(__FILE__) . "/view/" . $controller . "_" . $action . ".php";
         $this->m_View->set_layout(RPGWS_LAYOUT_PATH . "/" . $rpgws_config['layout']['default']);
         $this->m_View->set_content($view_file);
-        $this->m_View->set_menu(new Menu());
+        $this->m_View->set_menu(new DrD_Menu());
         
         $cont = new $cont_class();
         if(!method_exists($cont, $action_method)) $action_method = "index_action";
