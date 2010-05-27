@@ -237,7 +237,7 @@ class DrD_Character_Model
         $char->mana = $result['mana'];
         $char->name = $result['name'];
         $char->owner = $result['owner_id'];
-        $char->load_quests();
+        $char->load_quest();
         
         return $char;
     }
