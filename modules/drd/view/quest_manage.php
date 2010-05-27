@@ -13,7 +13,7 @@
      ?>
   	<li><?php echo $char->name;?> - 
   	  <a href="/drd/character/modify_form/<?php echo $char->character_id;?>">upravit</a>
-  	  <a href="/drd/quest/manage_remove/<?php echo $char->character_id;?>">odsranit z questu</a>
+  	  <a href="/drd/quest/manage_remove/<?php echo $this->quest->quest_id; ?>/<?php echo $char->character_id;?>">odsranit z questu</a>
   	</li>
   <?php }?>
 </ul>
