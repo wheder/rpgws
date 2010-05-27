@@ -85,10 +85,10 @@ class DrD_Character_Controller implements ControllerInterface
         $user = $auth->logged_user();
         
         $id = $this->m_request->get_uri_id();
-        if(empty($nick)) header('location: /drd/character/list');
+        if(empty($id)) header('location: /drd/character/list');
         
         $char = DrD_Character_Model::load($id);
-	    $char = $char[0];
+	
         //nacte questy daneho GM
         $db = Db::get();
         $on_gms_quest = false;
