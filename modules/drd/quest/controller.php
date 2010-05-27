@@ -70,7 +70,7 @@ class DrD_Quest_Controller implements ControllerInterface
             $post->whisper = false;
         }
         
-        foreach($_POST['targets'] as $target) {
+        if($post->is_whisper() && !empty($_POST['targets'])) foreach($_POST['targets'] as $target) {
             if(is_numeric($target) && $target > 0) {
                 $post->add_whisp_to(floor($target));   
             }  
