@@ -162,15 +162,15 @@ class DrD_Quest_Controller implements ControllerInterface
         
         $this->m_View->quest = $quest;
         $posts = DrD_Quest_Post_Model::load_all_by_quest($quest->quest_id);
-        $this->m_View->posts = array();
-        
+        $v_posts = array();
+        $cnt = 0; 
+
         foreach ($posts as $post) {
             if($post->is_whisp_to($user) || $quest->game_master_id == $user) {
-                array_push($this->m_View->posts, $post);
-            }
+                $v_posts[$cnt++] = $post;
+	    }
         }
-        
-        
+        $this->m_View->posts=$v_posts;
         
         $this->m_View->printPage();
     }
