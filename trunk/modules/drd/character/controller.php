@@ -9,7 +9,6 @@
 class DrD_Character_Controller implements ControllerInterface
 {
 
-    public $m_DrD_Dispatcher;
     private $m_view;
     private $m_request;
 
@@ -101,13 +100,25 @@ class DrD_Character_Controller implements ControllerInterface
         $this->m_view->printPage();
     }
 
+    public function list_action()
+    {
+        $auth = new Authentificator();
+        $user = $auth->logged_user();
+        $characters = DrD_Character_Model::load_by_player($user);
+        
+        $this->m_view->characters = $characters;
+        $this->m_view->printPage();
+    }
+    
     public function index_action()
     {
         $characters = DrD_Character_Model::get_all_names();
         $this->m_view->characters = Array();
-        for ($i = 0; $i < sizeof($characters); $i++) {
+        //wtf?
+        /*for ($i = 0; $i < sizeof($characters); $i++) {
             $this->m_view->characters[$i] = $characters[$i];
-        }
+        }*/
+        $this->m_view->characters = $characters;
         $this->m_view->printPage();
     }
 
