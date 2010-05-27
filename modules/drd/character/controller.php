@@ -45,7 +45,7 @@ class DrD_Character_Controller implements ControllerInterface
         $class = DrD_Class_Model::load($this->m_request->get_param_int('class'));
         $char->race = $race;
         $char->class = $class;
-	$char->owner = $user;
+     	$char->owner = $user;
         $char->save();
         
         $this->m_view->err = false;
@@ -85,6 +85,43 @@ class DrD_Character_Controller implements ControllerInterface
 
     public function modify_form_action()
     {
+        global $rpgws_config;
+        $auth = new Authentificator();
+        $user = $auth->logged_user();
+        
+        $nick = $this->m_request->get_uri_string();
+        if(empty($nick)) header('location: /drd/character/list');
+        
+        $char = DrD_Character_Model::load_by_name($nick);
+        //nacte questy daneho GM
+        $db = Db::get();
+        $on_gms_quest = false;
+        $query = "
+            SELECT
+                drd_quest_id
+            FROM
+                " . $rpgws_config['db']['prefix'] . "drd_quests
+            WHERE
+                game_master_id = " . $db->quote($user) ."
+        ";
+        $result = $db->query($query);
+        
+        if(!empty($result)) foreach($result as $row) {
+            if($char->is_in_quest($result['drd_quest_id'])) {
+                $on_gms_quest = true;
+                break;
+            }
+        }
+        
+        
+        if($char->owner_id != $user && !$on_gms_quest)
+        {
+            $this->m_view->err = true;
+            $this->m_view->msg = "Nemáte právo upravovat tuto postavu.";
+        }
+        
+        $this->m_view->char = $char;
+        $this->m_view->printPage();
     }
 
     /**
