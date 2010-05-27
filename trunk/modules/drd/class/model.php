@@ -118,7 +118,7 @@ class DrD_Class_Model
         	    *,
         	    COALESCE(parent_id, 0) AS parent
         	FROM
-        		" . $rpqws_config['db']['prefix'] . "drd_classes
+        		" . $rpgws_config['db']['prefix'] . "drd_classes
             WHERE
             	drd_classes_id = " . self::$m_DB->quote($id) . "
         ";
