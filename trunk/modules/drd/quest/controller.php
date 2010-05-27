@@ -82,6 +82,20 @@ class DrD_Quest_Controller implements ControllerInterface
         if(empty($id)) header('location: /drd/quest/list');
         
         $quest = DrD_Quest_Model::load($id);
+        $this->m_View->chars = DrD_Character_Model::load_by_quest($quest->quest_id);
+        $at_quest = false;
+        foreach($this->m_View->chars as $char) {
+            if($char->owner == $user) {
+                $at_quest = true;
+                break;
+            }
+        }
+        
+        if(!$at_quest && $user != $quest->game_master_id) {
+            $this->m_View->err = true;
+            $this->m_View->msg = "Nemáte žádnou postavu v tomto questu";
+        }
+        
         $this->m_View->quest = $quest;
         $posts = DrD_Quest_Post_Model::load_all_by_quest($quest->quest_id);
         $this->m_View->posts = array();
@@ -92,7 +106,8 @@ class DrD_Quest_Controller implements ControllerInterface
             }
         }
         
-        $this->m_View->chars = DrD_Character_Model::load_by_quest($quest->quest_id);
+        
+        
         $this->m_View->printPage();
     }
     
