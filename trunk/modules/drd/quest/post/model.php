@@ -240,6 +240,8 @@ class DrD_Quest_Post_Model
         
             array_push($ret, $post);
         }
+
+	return $ret;
     }
 
     /**
