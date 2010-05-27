@@ -93,6 +93,7 @@ class DrD_Character_Controller implements ControllerInterface
         if(empty($nick)) header('location: /drd/character/list');
         
         $char = DrD_Character_Model::load_by_name($nick);
+	$char = $char[0];
         //nacte questy daneho GM
         $db = Db::get();
         $on_gms_quest = false;
@@ -107,19 +108,19 @@ class DrD_Character_Controller implements ControllerInterface
         $result = $db->query($query);
         
         if(!empty($result)) foreach($result as $row) {
-            if($char->is_in_quest($result['drd_quest_id'])) {
+            if($char->is_in_quest($row['drd_quest_id'])) {
                 $on_gms_quest = true;
                 break;
             }
         }
         
-        
-        if($char->owner_id != $user && !$on_gms_quest)
+        if($char->owner != $user && !$on_gms_quest)
         {
             $this->m_view->err = true;
             $this->m_view->msg = "Nemáte právo upravovat tuto postavu.";
         }
         
+	$this->m_view->err = false;
         $this->m_view->char = $char;
         $this->m_view->printPage();
     }
