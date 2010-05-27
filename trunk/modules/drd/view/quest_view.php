@@ -1,3 +1,6 @@
+<?php if($this->err) {?>
+<h3>Chyba: <?php echo $this->msg; ?></h3>
+<?php } else { ?>
 <div id="description">
 <p>
 <?php echo $this->quest->description; ?>
@@ -7,7 +10,7 @@
 <div id="form">
 <form action="/drd/quest/add_post/<?php echo $this->quest->quest_id; ?>" method="post">
 Text:<br />
-<textarea rows="5" cols="40"></textarea>
+<textarea rows="5" cols="40" name="content"></textarea>
 <br />
 Šepot: <input type="checkbox" name="whisp" value="1"/><br />
 Cíl šeptání: 
@@ -43,3 +46,4 @@ if(!empty($this->chars)) foreach($this->chars as $char)
 	</div>
 <?php } ?>
 </div>
+<?php }?>
