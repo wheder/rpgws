@@ -5,5 +5,5 @@
 <?php }?>
 </ul>
 <p>
-<a href="/dq/quest/create_form/">Nový quest</a>
+<a href="/drd/quest/create_form/">Nový quest</a>
 </p>
