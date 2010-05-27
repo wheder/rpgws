@@ -210,5 +210,43 @@ class DrD_Quest_Controller implements ControllerInterface
         $this->m_View->err = false;
         $this->m_View->printPage();
     }
+    
+    public function manage_add()
+    {
+        $auth = new Authentificator();
+        $user = $auth->logged_user();
+        $quest_id = $this->m_Request->get_uri_id();
+        
+        if(empty($quest_id)) $this->index_action();
+        
+        $quest = DrD_Quest_Model::load($quest_id);
+        if($quest->game_master_id != $user) {
+            $this->m_View->err = true;
+            $this->m_View->msg = "Nemůžete spravovat tento quest.";
+            $this->m_View->printPage();
+            return;  
+        }
+        
+        $add_chars = DrD_Character_Model::load_without_quest();
+        
+        if(empty($add_chars)) {
+            $this->m_View->err = true;
+            $this->m_View->msg = "Žádné volné postavy k přidání.";
+            $this->m_View->printPage();
+            return;   
+        }
+        
+        foreach($add_chars as $char) {
+            if($char->owner != $user && $this->m_Request->get_param_int('char_' . $char->character_id) == 1) {
+                $char->add_to_quest($quest->quest_id);
+                $char->save();
+            }
+        }
+        
+        $this->m_View->err = false;
+        $this->m_View->msg = "Postavy úspěšně přidány.";
+        $this->m_View->printPage();
+        return;
+    }
 }
 ?>
