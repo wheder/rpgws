@@ -186,5 +186,28 @@ class DrD_Quest_Controller implements ControllerInterface
     {
         header('location: /drd/quest/list');  
     }
+    
+    public function manage_action() 
+    {
+        $auth = new Authentificator();
+        $user = $auth->logged_user();
+        $quest_id = $this->m_Request->get_uri_id();
+        
+        if(empty($quest_id)) $this->index_action();
+        
+        $quest = DrD_Quest_Model::load($quest_id);
+        if($quest->game_master_id != $user) {
+            $this->m_View->err = true;
+            $this->m_View->msg = "Nemůžete spravovat tento quest.";
+            $this->m_View->printPage();
+            return;  
+        }
+        
+        $this->m_View->quest_chars = DrD_Character_Model::load_by_quest($quest->quest_id);
+        $this->m_View->add_chars = DrD_Character_Model::get_all_names();
+
+        $this->m_View->err = false;
+        $this->m_View->printPage();
+    }
 }
 ?>
