@@ -310,7 +310,7 @@ class DrD_Character_Model
             $char[$i]->mana = $result[$i]['mana'];
             $char[$i]->name = $result[$i]['name'];
             $char[$i]->owner = $result[$i]['owner_id'];
-            $char[$i]->load_quests();
+            $char[$i]->load_quest();
         }
         return $char;
     }
@@ -354,7 +354,7 @@ class DrD_Character_Model
             $char->mana = $result['mana'];
             $char->name = $result['name'];
             $char->owner = $result['owner_id'];
-            $char->load_quests();
+            $char->load_quest();
             $ret[$char->character_id] = $char;
         }
         
@@ -406,7 +406,7 @@ class DrD_Character_Model
             $char->mana = $result['mana'];
             $char->name = $result['name'];
             $char->owner = $result['owner_id'];
-            $char->load_quests();
+            $char->load_quest();
             $ret[$char->character_id] = $char;
         }
         
