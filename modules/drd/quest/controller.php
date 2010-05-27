@@ -177,7 +177,9 @@ class DrD_Quest_Controller implements ControllerInterface
     
     public function list_action()
     {
-        
+        $quests = DrD_Quest_Model::load_all_active();
+        $this->m_View->quests = $quests;
+        $this->m_View->printPage();
     }
 
     public function index_action() 
