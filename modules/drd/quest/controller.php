@@ -31,7 +31,7 @@ class DrD_Quest_Controller implements ControllerInterface
         $user = $authen->logged_user();
         
         $quest = new DrD_Quest_Model();
-        $quest->description = $this->m_Request->get_param($desc);
+        $quest->description = $this->m_Request->get_param('desc');
         if(empty($quest->description)) {
             $this->m_View->err = true;
             $this->m_View->msg = "Prázdný popisek questu.";
