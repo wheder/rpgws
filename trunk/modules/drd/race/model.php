@@ -77,7 +77,7 @@ class DrD_Race_Model
         if(!method_exists($this,$method)) return false;
         
         $var = $this->$method();
-        return empty($var);
+        return (!empty($var));
     }
 
     public function getdescription()
