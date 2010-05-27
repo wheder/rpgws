@@ -166,7 +166,7 @@ class DrD_Quest_Controller implements ControllerInterface
         $cnt = 0; 
 
         foreach ($posts as $post) {
-            if($post->is_whisp_to($user) || $quest->game_master_id == $user) {
+            if(!$post->is_whisper() || $post->is_whisp_to($user) || $quest->game_master_id == $user) {
                 $v_posts[$cnt++] = $post;
 	    }
         }
