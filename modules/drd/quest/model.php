@@ -145,7 +145,7 @@ class DrD_Quest_Model
     public static function load($id)
     {
         if($id < 1) throw new UnexpectedQuestIdException("Neočekávané id questu -- nelze načíst quest.", "Neplatné id questu", "Nelze načíst quest.", 6213);
-        if(self::$m_DB === null) 
+        if(self::$m_DB === null) self::$m_DB = Db::get();
         global $rpgws_config;
         $query = "
             SELECT
