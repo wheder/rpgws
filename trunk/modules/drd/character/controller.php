@@ -135,11 +135,11 @@ class DrD_Character_Controller implements ControllerInterface
         $auth = new Authentificator();
         $user = $auth->logged_user();
         
-        $nick = $this->m_request->get_uri_string();
-        if(empty($nick)) header('location: /drd/character/list');
+        $id = $this->m_request->get_uri_id();
+        if(empty($id)) header('location: /drd/character/list');
         
-        $char = DrD_Character_Model::load_by_name($nick);
-	    $char = $char[0];
+        $char = DrD_Character_Model::load($id);
+	    
         //nacte questy daneho GM
         $db = Db::get();
         $on_gms_quest = false;
@@ -196,14 +196,15 @@ class DrD_Character_Controller implements ControllerInterface
         $this->m_view->err = false;
         try {
             $characters = DrD_Character_Model::load_by_name($this->m_request->get_uri_string());
-            $this->m_view->characters = Array();
+            $this->m_view->characters = $characters;
             //class race description name
-            for ($i = 0; $i < sizeof($characters); $i++) {
+            //sry ale tohle je spatne
+            /*for ($i = 0; $i < sizeof($characters); $i++) {
                 $this->m_view->characters[$i]['name'] = $characters[$i]->getname();
                 $this->m_view->characters[$i]['class'] = $characters[$i]->getclass();
                 $this->m_view->characters[$i]['race'] = $characters[$i]->getrace();
                 $this->m_view->characters[$i]['description'] = $characters[$i]->getdescription();
-            }
+            }*/
         }
         catch (Exceptions $e) {
             $this->m_view->err = true;

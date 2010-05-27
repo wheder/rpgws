@@ -7,15 +7,16 @@ if ($this->err) {
     return;
 }
 
-foreach ($this->characters as $char) {
+if(!empty($this->characters)) foreach ($this->characters as $char) {
     ?>
     <div>
-    Jméno: <?php echo $char["name"] ?><br />
-    Rasa: <?php echo $char["race"] ?><br />
-    Povolání: <?php echo $char["class"] ?><br />
-    Popis: <?php echo $char["description"] ?><br />
+    Jméno: <?php echo $char->name; ?><br />
+    Rasa: <?php echo $char->race->name ?><br />
+    Povolání: <?php echo $char->class->name ?><br />
+    Popis: <?php echo $char->description ?><br />
     
     </div>
     <?php
     
 }
+?>
