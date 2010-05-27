@@ -323,7 +323,7 @@ class DrD_Character_Model
      */
     public static function load_by_player($owner)
     {
-        if($id < 1) throw new UnexpectedPlayerIdException("Nelze nacist postavy, jelikoz ID vlastnika neni platne.", "Neplatné id vlastníka", "Neplatné id vlastníka.", 6208);
+        if($owner < 1) throw new UnexpectedPlayerIdException("Nelze nacist postavy, jelikoz ID vlastnika neni platne.", "Neplatné id vlastníka", "Neplatné id vlastníka.", 6208);
         if(self::$m_DB === null) self::$m_DB = Db::get();
         
         global $rpgws_config;
