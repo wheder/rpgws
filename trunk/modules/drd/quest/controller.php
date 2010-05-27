@@ -171,7 +171,7 @@ class DrD_Quest_Controller implements ControllerInterface
 	    }
         }
         $this->m_View->posts=$v_posts;
-        
+        $this->m_View->pj = ($quest->game_master_id == $user);
         $this->m_View->printPage();
     }
     
