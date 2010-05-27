@@ -341,19 +341,18 @@ class DrD_Character_Model
         $ret = array();
         if(self::$m_DB->num_rows() < 1) return null;
         
-        $result = $result[0];
         foreach($result as $row)
         {
             $char = new self();
-            $char->class = DrD_Class_Model::load($result['class_id']);
-            $char->race = DrD_Race_Model::load($result['race_id']);
-            $char->description = $result['description'];
-            $char->hit_points = $result['hit_points'];
-            $char->character_id = $result['drd_character_id'];
-            $char->items = $result['items'];
-            $char->mana = $result['mana'];
-            $char->name = $result['name'];
-            $char->owner = $result['owner_id'];
+            $char->class = DrD_Class_Model::load($row['class_id']);
+            $char->race = DrD_Race_Model::load($row['race_id']);
+            $char->description = $row['description'];
+            $char->hit_points = $row['hit_points'];
+            $char->character_id = $row['drd_character_id'];
+            $char->items = $row['items'];
+            $char->mana = $row['mana'];
+            $char->name = $row['name'];
+            $char->owner = $row['owner_id'];
             $char->load_quest();
             $ret[$char->character_id] = $char;
         }
