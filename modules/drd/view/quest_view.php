@@ -13,7 +13,7 @@ Text:<br />
 Cíl šeptání: 
 <select name="targets[]" multiple="multiple">
 <?php
-foreach($this->chars as $char)
+if(!empty($this->chars)) foreach($this->chars as $char)
 {
     echo "<option value=\"" . $char->character_id . "\">" . $char->name . "</option>\n";
 }
