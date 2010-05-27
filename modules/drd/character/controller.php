@@ -84,10 +84,10 @@ class DrD_Character_Controller implements ControllerInterface
         $auth = new Authentificator();
         $user = $auth->logged_user();
         
-        $nick = $this->m_request->get_uri_string();
+        $id = $this->m_request->get_uri_id();
         if(empty($nick)) header('location: /drd/character/list');
         
-        $char = DrD_Character_Model::load_by_name($nick);
+        $char = DrD_Character_Model::load($id);
 	    $char = $char[0];
         //nacte questy daneho GM
         $db = Db::get();
@@ -117,7 +117,7 @@ class DrD_Character_Controller implements ControllerInterface
             return;
         }
         
-        $char->name = $nick;
+        $char->name = $this->m_request->get_param_int('name');
         $char->mana = $this->m_request->get_param_int('mana');
         $char->hit_points = $this->m_request->get_param_int('hitpoint');
         $char->description = $this->m_request->get_param('description');
