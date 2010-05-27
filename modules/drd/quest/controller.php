@@ -23,6 +23,64 @@ class DrD_Quest_Controller implements ControllerInterface
 
     public function add_post_action()
     {
+        $auth = new Authentificator();
+        $user = $auth->logged_user();
+        
+        $id = $this->m_Request->get_uri_id();
+
+        if(empty($id)) header('location: /drd/quest/list');
+        
+        $quest = DrD_Quest_Model::load($id);
+        $this->m_View->chars = DrD_Character_Model::load_by_quest($quest->quest_id);
+        
+        $at_quest = false;
+        $a_char = null;
+        if(!empty($this->m_View->chars))
+        {
+            foreach($this->m_View->chars as $char) {
+                if($char->owner == $user) {
+                    $at_quest = true;
+                    $a_char = $char;
+                    break;
+                }
+            }
+        }
+        
+        if(!$at_quest && $user != $quest->game_master_id) {
+            $this->m_View->err = true;
+            $this->m_View->msg = "Nemáte žádnou postavu v tomto questu";
+            $this->m_View->printPage();
+            return;
+        }
+        
+        $post = new DrD_Quest_Post_Model();
+        $post->author_user = $user;
+        $post->author_character = $a_char;
+        $post->content = $this->m_Request->get_param('content');
+        if(empty($post->content)) {
+            $this->m_View->err = true;
+            $this->m_View->msg = "Nezadal jste žádný obsah příspěvku.";
+            $this->m_View->printPage();
+            return;
+        }
+        $post->quest_id = $quest->quest_id;
+        if($this->m_Request->get_param_int('whisp') == 1) {
+            $post->whisper = true;
+        } else {
+            $post->whisper = false;
+        }
+        
+        foreach($_POST['targets'] as $target) {
+            if(is_numeric($target) && $target > 0) {
+                $post->add_whisp_to(floor($target));   
+            }  
+        }
+        
+        $post->save();
+        $this->m_View->err = false;
+        $this->m_View->msg = "Příspěvek úspěšně přidán.";
+        $this->m_View->printPage();
+        return;
     }
 
     public function create_action()
@@ -98,6 +156,8 @@ class DrD_Quest_Controller implements ControllerInterface
         if(!$at_quest && $user != $quest->game_master_id) {
             $this->m_View->err = true;
             $this->m_View->msg = "Nemáte žádnou postavu v tomto questu";
+            $this->m_View->printPage();
+            return;
         }
         
         $this->m_View->quest = $quest;
