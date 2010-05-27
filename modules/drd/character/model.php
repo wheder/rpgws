@@ -471,7 +471,7 @@ class DrD_Character_Model
                     SELECT 
                         drd_character_id
                     FROM
-                        " . $rpgws_config['db']['prefix'] . "drd_quest_members
+                        " . $rpgws_config['db']['prefix'] . "drd_quest_members)
         ";
         
         $result = self::$m_DB->query($query);
