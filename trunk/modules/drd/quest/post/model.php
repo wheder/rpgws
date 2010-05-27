@@ -168,7 +168,7 @@ class DrD_Quest_Post_Model
         $query = "
             SELECT
                 *,
-                CAST(is_whisper AS UNISGNED) AS is_whisper,
+                CAST(is_whisper AS UNSIGNED) AS is_whisper,
                 COALESCE(author_character_id, 0) AS author_character,
                 COALESCE(author_user_id, 0) AS author_user
             FROM 
@@ -212,7 +212,7 @@ class DrD_Quest_Post_Model
         $query = "
             SELECT
                 *,
-                CAST(is_whisper AS UNISGNED) AS is_whisper,
+                CAST(is_whisper AS UNSIGNED) AS is_whisper,
                 COALESCE(author_character_id, 0) AS author_character,
                 COALESCE(author_user_id, 0) AS author_user
             FROM 
