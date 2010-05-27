@@ -359,6 +359,46 @@ class DrD_Character_Model
         
         return $ret;
     }
+    
+    /**
+     * metoda nacte vsechny postavy v DB
+     * @return array
+     */
+    public static function load_all() 
+    {
+        if(self::$m_DB === null) self::$m_DB = Db::get();
+        
+        global $rpgws_config;
+        
+        $query = "
+            SELECT
+                *
+            FROM
+                " . $rpgws_config['db']['prefix'] . "drd_characters
+        ";
+        
+        $result = self::$m_DB->query($query);
+        $ret = array();
+        if(self::$m_DB->num_rows() < 1) return null;
+        
+        foreach($result as $row)
+        {
+            $char = new self();
+            $char->class = DrD_Class_Model::load($row['class_id']);
+            $char->race = DrD_Race_Model::load($row['race_id']);
+            $char->description = $row['description'];
+            $char->hit_points = $row['hit_points'];
+            $char->character_id = $row['drd_character_id'];
+            $char->items = $row['items'];
+            $char->mana = $row['mana'];
+            $char->name = $row['name'];
+            $char->owner = $row['owner_id'];
+            $char->load_quest();
+            $ret[$char->character_id] = $char;
+        }
+        
+        return $ret;
+    }
 
     /**
      * Metoda nacte vsechny postavy na danem questu
@@ -392,19 +432,18 @@ class DrD_Character_Model
         $ret = array();
         if(self::$m_DB->num_rows() < 1) return null;
         
-        $result = $result[0];
         foreach($result as $row)
         {
             $char = new self();
-            $char->class = DrD_Class_Model::load($result['class_id']);
-            $char->race = DrD_Race_Model::load($result['race_id']);
-            $char->description = $result['description'];
-            $char->hit_points = $result['hit_points'];
-            $char->character_id = $result['drd_character_id'];
-            $char->items = $result['items'];
-            $char->mana = $result['mana'];
-            $char->name = $result['name'];
-            $char->owner = $result['owner_id'];
+            $char->class = DrD_Class_Model::load($row['class_id']);
+            $char->race = DrD_Race_Model::load($row['race_id']);
+            $char->description = $row['description'];
+            $char->hit_points = $row['hit_points'];
+            $char->character_id = $row['drd_character_id'];
+            $char->items = $row['items'];
+            $char->mana = $row['mana'];
+            $char->name = $row['name'];
+            $char->owner = $row['owner_id'];
             $char->load_quest();
             $ret[$char->character_id] = $char;
         }
