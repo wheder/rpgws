@@ -83,11 +83,15 @@ class DrD_Quest_Controller implements ControllerInterface
         
         $quest = DrD_Quest_Model::load($id);
         $this->m_View->chars = DrD_Character_Model::load_by_quest($quest->quest_id);
+        
         $at_quest = false;
-        foreach($this->m_View->chars as $char) {
-            if($char->owner == $user) {
-                $at_quest = true;
-                break;
+        if(!empty($this->m_View->chars))
+        {
+            foreach($this->m_View->chars as $char) {
+                if($char->owner == $user) {
+                    $at_quest = true;
+                    break;
+                }
             }
         }
         
