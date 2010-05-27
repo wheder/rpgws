@@ -22,14 +22,15 @@
 <form action="/drd/quest/manage_add/" method="post">
     <p>
     Postavy:
+    </p>
     <ul> 
 <?php if(!empty($this->add_chars)) foreach($this->add_chars AS $char) {
-    if(!in_array($char->character_id, $in_quest)) {
+    if(!in_array($char->character_id, $in_quest) && $this->gm != $char->owner) {
         ?>
         <li><?php echo $char->name;?> (povolání: <?php echo $char->class->name;?>,
           rasa: <?php echo $char->race->name;?>,
           id: <?php echo $char->character_id;?>)
-          <input type="checkbox" name="char_<?php echo $char->character_id;?>" value="1"/>
+          <input type="checkbox" name="char_<?php echo $char->character_id; ?>" value="1"/>
         </li>
         <?php         
     }
@@ -37,6 +38,6 @@
 	</ul>    
     
     <input type="submit" value="Přidat" />
-    </p>
+    
 </form>
 <?php } ?>
