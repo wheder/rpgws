@@ -117,7 +117,7 @@ class DrD_Character_Controller implements ControllerInterface
             return;
         }
         
-        $char->name = $this->m_request->get_param_int('name');
+        $char->name = $this->m_request->get_param('name');
         $char->mana = $this->m_request->get_param_int('mana');
         $char->hit_points = $this->m_request->get_param_int('hitpoint');
         $char->description = $this->m_request->get_param('description');
