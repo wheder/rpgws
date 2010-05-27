@@ -20,7 +20,7 @@
          <option value="<?php echo $class["drd_class_id"];  ?>"><?php echo $class["name"];  ?></option>
         <?php  } ?>
     </select><br />
-    <input type="submit" />
+    <input type="submit" value="Vytvořit"/>
     </div>
 </form>
 
