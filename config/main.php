@@ -15,8 +15,8 @@ defined('RPGWS_MODULES_PATH')
     || define('RPGWS_MODULES_PATH', realpath(dirname(__FILE__) . '/../modules'));
 
 defined('RPGWS_ENVINRONMENT')
-//    || define('RPGWS_ENVINRONMENT', 'public'); // public, debug
-    || define('RPGWS_ENVINRONMENT', 'debug'); // public, debug
+    || define('RPGWS_ENVINRONMENT', 'public'); // public, debug
+//    || define('RPGWS_ENVINRONMENT', 'debug'); // public, debug
 
 defined('RPGWS_LAYOUT_PATH')
     || define('RPGWS_LAYOUT_PATH', realpath(dirname(__FILE__) . '/../layout'));

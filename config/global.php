@@ -15,6 +15,7 @@ $rpgws_config['logs']['level'] = 2;
 
 $rpgws_config['layout']['default'] = 'default.php';
 $rpgws_config['view']['error'] = 'error.php';
+$rpgws_config['view']['welcome'] = 'welcome.php';
 
 $rpgws_config['flood_prot']['time_limit'] = 5*60; //limit in seconds
 $rpgws_config['flood_prot']['limit'] = 5; //amount of allowed attempts

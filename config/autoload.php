@@ -31,6 +31,6 @@ function __autoload($classname) {
     }
 
     eval("class $classname {}");
-    throw new Exception("Class $classname not found!");
+    throw new NotFoundException("Requested class '$classname' doesn't exist.", "Error 404", "Not Found", 404);//throw new Exception("Class $classname not found!");
 }
 ?>

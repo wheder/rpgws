@@ -25,7 +25,8 @@ class Menu
 	        $result['Login'] = '/user/login/form';
 	    } else {
 	        $result['Upravit údaje'] = '/user/info/edit_form';
-	        $result['Logout'] = '/user/login/logout';
+                $result['Logout'] = '/user/login/logout';
+                $result['Dračí doupě'] = '/drd';
 	    }
 	    return $result;
 	}
