@@ -29,6 +29,12 @@ class DrD_Dispatcher implements DispatcherInterface
      */
     public function dispatch(Request $request)
     {
+        $auth = new Authentificator();
+        $logged = $auth->logged_user();
+        
+        if($logged < 1) header("location: /");
+        $this->add_user($logged);
+        
         global $rpgws_config;
         $controller = $request->get_uri_string();
         $action = $request->get_uri_string();
@@ -47,6 +53,21 @@ class DrD_Dispatcher implements DispatcherInterface
         $cont->registerView($this->m_View);
         $cont->registerRequest($request);
         $cont->$action_method();
+    }
+    
+    protected function add_user($user_id) 
+    {
+        global $rpgws_config;
+        $db = DB::get();
+        $query = "
+            INSERT IGNORE INTO
+                " . $rpgws_config['db']['prefix'] . "drd_players
+                (drd_player_id)
+            VALUES (
+            	" . $db->quote($user_id) . ") 
+        ";     
+        
+        $db->query($query);
     }
 
     /**
