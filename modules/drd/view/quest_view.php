@@ -5,7 +5,7 @@
 </div>
 
 <div id="form">
-<form action="/drd/quest/add_post">
+<form action="/drd/quest/add_post/<?php echo $this->quest->quest_id; ?>" method="post">
 Text:<br />
 <textarea rows="5" cols="40"></textarea>
 <br />
