@@ -78,6 +78,8 @@ class DrD_Quest_Controller implements ControllerInterface
         $user = $auth->logged_user();
         
         $id = $this->m_Request->get_uri_id();
+
+        if(empty($id)) header('location: /drd/quest/list');
         
         $quest = DrD_Quest_Model::load($id);
         $this->m_View->quest = $quest;
@@ -90,6 +92,7 @@ class DrD_Quest_Controller implements ControllerInterface
             }
         }
         
+        $this->m_View->chars = DrD_Character_Model::load_by_quest($quest->quest_id);
         $this->m_View->printPage();
     }
     
