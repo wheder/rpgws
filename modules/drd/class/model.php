@@ -12,7 +12,7 @@ class DrD_Class_Model
     private $description;
     private $name;
     private $parent;
-    private static $m_DB;
+    private static $m_DB = null;
     private static $loaded = array();
   
     function __construct()
@@ -112,7 +112,7 @@ class DrD_Class_Model
         if($id < 1) throw new UnexpectedClassIdException("Nelze nacist povolani, jelikoz jeho ID neni platne.", "Neplatné id povolani", "Neplatné id povolani.", 6201);
         global $rpgws_config;
         if(isset(self::$loaded[$id])) return self::$loaded[$id];
-        
+        if(self::$m_DB === null) self::$m_DB = Db::get();
         $query = "
         	SELECT
         	    *,
@@ -151,6 +151,7 @@ class DrD_Class_Model
     public static function load_all()
     {
         global $rpgws_config;
+        if(self::$m_DB === null) self::$m_DB = Db::get();
         $query = "
         	SELECT
         	    *,
@@ -193,6 +194,7 @@ class DrD_Class_Model
      */
     public static function load_by_name($name)
     {
+        if(self::$m_DB === null) self::$m_DB = Db::get();
         if(isset(self::$loaded[$name])) return self::$loaded[$name];
         
         global $rpgws_config;
