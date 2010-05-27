@@ -217,7 +217,7 @@ class DrD_Quest_Post_Model
                 " . $rpgws_config['db']['prefix'] . "drd_quest_posts
             WHERE
                 belongs_to_quest_id = " . self::$m_DB->quote($quest) . "
-            ORDER_BY
+            ORDER BY
                 origin_time DESC
         ";
         
