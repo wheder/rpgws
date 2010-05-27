@@ -309,14 +309,14 @@ class DrD_Quest_Post_Model
     {
         global $rpgws_config;
         
-        $author_char = ($this->author_character === null ? 0 : $this->author_character->character_id);
+        $author_char = ($this->author_character === null ? "NULL" : self::$m_DB->quote($this->author_character->character_id));
         $whisp = ($this->whisper ? "b'1'" : "b'0'");
         $query = "
             INSERT INTO
                 " . $rpgws_config['db']['prefix'] . "drd_quest_posts
                 (author_character_id, author_user_id, content, belongs_to_quest_id, origin_time, is_whisper)
             VALUES (
-                " . self::$m_DB->quote($author_char) . ",
+                " . $author_char . ",
                 " . self::$m_DB->quote($this->author_user) . ",
                 " . self::$m_DB->quote($this->content) . ",
                 " . self::$m_DB->quote($this->quest_id) . ",
@@ -335,7 +335,7 @@ class DrD_Quest_Post_Model
      */
     public function save()
     {
-        if($this->quest_id > 0) {
+        if($this->post_id > 0) {
             $this->update();
         } else {
             $this->insert();
