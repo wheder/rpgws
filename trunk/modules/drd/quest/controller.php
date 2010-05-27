@@ -248,5 +248,39 @@ class DrD_Quest_Controller implements ControllerInterface
         $this->m_View->printPage();
         return;
     }
+    
+    public function manage_remove_action()
+    {
+        $auth = new Authentificator();
+        $user = $auth->logged_user();
+        $quest_id = $this->m_Request->get_uri_id();
+        $char_id = $this->m_Request->get_uri_id();
+        if(empty($quest_id)) $this->index_action();
+        
+        if(empty($char_id)) header("location: /drd/quest/manage/" . $quest_id);
+        
+        $quest = DrD_Quest_Model::load($quest_id);
+        if($quest->game_master_id != $user) {
+            $this->m_View->err = true;
+            $this->m_View->msg = "Nemůžete spravovat tento quest.";
+            $this->m_View->printPage();
+            return;  
+        }
+        
+        $char = DrD_Character_Model::load($char_id);
+        if(!$char->is_in_quest($quest->quest_id)) {
+            $this->m_View->err = true;
+            $this->m_View->msg = "Tato postava není ve vašem questu.";
+            $this->m_View->printPage();
+            return;
+        }
+        
+        $char->rem_from_quest($quest->quest_id);
+        $char->save();
+        $this->m_View->err = false;
+        $this->m_View->msg = "Postava úspěšně odebrána.";
+        $this->m_View->printPage();
+        return;
+    }
 }
 ?>
