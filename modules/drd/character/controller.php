@@ -80,12 +80,7 @@ class DrD_Character_Controller implements ControllerInterface
 
     public function modify_action()
     {
-        
-    }
-
-    public function modify_form_action()
-    {
-        global $rpgws_config;
+    global $rpgws_config;
         $auth = new Authentificator();
         $user = $auth->logged_user();
         
@@ -93,7 +88,7 @@ class DrD_Character_Controller implements ControllerInterface
         if(empty($nick)) header('location: /drd/character/list');
         
         $char = DrD_Character_Model::load_by_name($nick);
-	$char = $char[0];
+	    $char = $char[0];
         //nacte questy daneho GM
         $db = Db::get();
         $on_gms_quest = false;
@@ -118,9 +113,62 @@ class DrD_Character_Controller implements ControllerInterface
         {
             $this->m_view->err = true;
             $this->m_view->msg = "Nemáte právo upravovat tuto postavu.";
+            $this->m_view->printPage();
+            return;
         }
         
-	$this->m_view->err = false;
+        $char->name = $nick;
+        $char->mana = $this->m_request->get_param_int('mana');
+        $char->hit_points = $this->m_request->get_param_int('hitpoint');
+        $char->description = $this->m_request->get_param('description');
+        $char->items = $this->m_request->get_param('items');
+        $char->save();
+        
+        $this->m_view->err = false;
+        $this->m_view->msg = "Postava byla úspěšně uložena.";
+        $this->m_view->printPage();
+    }
+
+    public function modify_form_action()
+    {
+        global $rpgws_config;
+        $auth = new Authentificator();
+        $user = $auth->logged_user();
+        
+        $nick = $this->m_request->get_uri_string();
+        if(empty($nick)) header('location: /drd/character/list');
+        
+        $char = DrD_Character_Model::load_by_name($nick);
+	    $char = $char[0];
+        //nacte questy daneho GM
+        $db = Db::get();
+        $on_gms_quest = false;
+        $query = "
+            SELECT
+                drd_quest_id
+            FROM
+                " . $rpgws_config['db']['prefix'] . "drd_quests
+            WHERE
+                game_master_id = " . $db->quote($user) ."
+        ";
+        $result = $db->query($query);
+        
+        if(!empty($result)) foreach($result as $row) {
+            if($char->is_in_quest($row['drd_quest_id'])) {
+                $on_gms_quest = true;
+                break;
+            }
+        }
+        
+        if($char->owner != $user && !$on_gms_quest)
+        {
+            $this->m_view->err = true;
+            $this->m_view->msg = "Nemáte právo upravovat tuto postavu.";
+            $this->m_view->printPage();
+            return;
+        }
+        
+	    $this->m_view->err = false;
         $this->m_view->char = $char;
         $this->m_view->printPage();
     }
