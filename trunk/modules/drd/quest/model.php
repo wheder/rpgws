@@ -243,6 +243,44 @@ class DrD_Quest_Model
     }
     
     /**
+     * Metoda nacte vsechny aktivni questy v DB
+     * @return void
+     */
+    public static function load_all_active()
+    {
+        global $rpgws_config;
+        if(self::$m_DB === null) self::$m_DB = Db::get();
+        
+        $query = "
+            SELECT
+                *,
+                CAST(active AS UNSIGNED) AS active
+            FROM
+                " . $rpgws_config['db']['prefix'] . "drd_quests
+            WHERE 
+                active = b'1'
+        ";
+        
+        $result = self::$m_DB->query($query);
+        $ret = array();
+        
+        if(self::$m_DB->num_rows() < 1) return $ret;
+        
+        foreach($result as $row)
+        {
+            $quest = new self();
+            $quest->active = ($row['active'] == 1);
+            $quest->description = $row['description'];
+            $quest->game_master_id = $row['game_master_id'];
+            $quest->quest_id = $row['drd_quest_id'];
+            $quest->load_characters();
+            $ret[$quest->quest_id] = $quest;
+        }
+
+        return $ret;
+    }
+    
+    /**
      * Nacte questy dane postavy
      * 
      * @param int $char
