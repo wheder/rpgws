@@ -37,6 +37,7 @@ class DrD_Dispatcher implements DispatcherInterface
         
         global $rpgws_config;
         $controller = $request->get_uri_string();
+        if(empty($controller)) $controller = "index";
         $action = $request->get_uri_string();
         if(empty($action)) $action = "index";
         
