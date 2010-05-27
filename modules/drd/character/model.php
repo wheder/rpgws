@@ -92,7 +92,7 @@ class DrD_Character_Model
         if(!method_exists($this,$method)) return false;
         
         $var = $this->$method();
-        return (!empty($var));
+        return empty($var);
     }
 
     /**
@@ -239,6 +239,79 @@ class DrD_Character_Model
         $char->owner = $result['owner_id'];
         $char->load_quests();
         
+        return $char;
+    }
+    
+    public static function get_all_names() {
+        $db = Db::get();
+        
+        global $rpgws_config;
+        
+        $query = "
+            SELECT
+                name
+            FROM
+                " . $rpgws_config['db']['prefix'] . "drd_characters
+            ORDER BY
+                drd_character_id ASC
+        ";
+        
+        $result = $db->query($query);
+        
+        $char = Array();
+        
+        for ($i = 0; $i <sizeof($result);$i++ ) {
+            $char[$i] = $result[$i]["name"];
+        }
+        return $char;
+    }
+    
+    /**
+     * Staticka metoda pro nacteni postav
+     *
+     * @param string $name
+     * @return Array of DrD_Character_Model
+     */
+    public static function load_by_name($name)
+    {
+        //if($id < 1) throw new UnexpectedCharacterIdException("Nelze nacist postavu, jelikoz jeji ID neni platne.", "Neplatné id postavy", "Neplatné id postavy.", 6205);
+        
+        $db = Db::get();
+        
+        global $rpgws_config;
+        
+        $query = "
+            SELECT
+                *
+            FROM
+                " . $rpgws_config['db']['prefix'] . "drd_characters
+            WHERE
+                name = " . $db->quote($name) . "
+            ORDER BY
+                drd_character_id ASC
+                
+        ";
+        
+        $result = $db->query($query);
+
+        if($db->num_rows() < 1) throw new NonExistCharacterException("Postava se jménem $name neexistuje.", "Postava neexistuje.", "Pozadovana postava neni v databazi.", 6207);
+        
+        $char = Array();
+        
+        for ($i = 0; $i <sizeof($result);$i++ ) {
+            
+            $char[$i] = new self();
+            $char[$i]->class = DrD_Class_Model::load($result[$i]['class_id']);
+            $char[$i]->race = DrD_Race_Model::load($result[$i]['race_id']);
+            $char[$i]->description = $result[$i]['description'];
+            $char[$i]->hit_points = $result[$i]['hit_points'];
+            $char[$i]->character_id = $result[$i]['drd_character_id'];
+            $char[$i]->items = $result[$i]['items'];
+            $char[$i]->mana = $result[$i]['mana'];
+            $char[$i]->name = $result[$i]['name'];
+            $char[$i]->owner = $result[$i]['owner_id'];
+            $char[$i]->load_quests();
+        }
         return $char;
     }
 
