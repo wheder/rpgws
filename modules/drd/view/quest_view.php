@@ -3,7 +3,7 @@
 <?php } else { ?>
 <div id="description">
 <p>
-<?php echo $this->quest->description; ?>
+<?php echo htmlspecialchars($this->quest->description); ?>
 <br />
 <?php if($this->pj) { ?>
 <a href="/drd/quest/manage/<?php echo $this->quest->quest_id; ?>">Spravovat quest</a>
@@ -34,7 +34,7 @@ if(!empty($this->chars)) foreach($this->chars as $char)
 <?php foreach($this->posts as $post) {?>
 	<div class="post">
 		<div class="author">
-			<?php echo ($post->author_character === null ? 'Pán jeskyně' : $post->author_character->name);?>
+			<?php echo ($post->author_character === null ? 'Pán jeskyně' : htmlspecialchars($post->author_character->name));?>
 		</div>
 		<div class="time">
 			<?php echo $post->time; ?>
