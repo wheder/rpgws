@@ -4,6 +4,10 @@
 <div id="description">
 <p>
 <?php echo $this->quest->description; ?>
+<br />
+<?php if($this->pj) { ?>
+<a href="/drd/quest/manage/<?php echo $this->quest->quest_id; ?>">Spravovat quest</a>
+<?php } ?>
 </p>
 </div>
 
