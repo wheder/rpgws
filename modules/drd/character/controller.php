@@ -46,6 +46,7 @@ class DrD_Character_Controller implements ControllerInterface
         $char->race = $race;
         $char->class = $class;
         $char->save();
+        $char->owner_id = $user;
         
         $this->m_view->err = false;
         $this->m_view->msg = "Postava byla úspěšně vytvořena";
