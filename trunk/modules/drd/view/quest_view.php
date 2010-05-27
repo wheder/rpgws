@@ -45,7 +45,7 @@ if(!empty($this->chars)) foreach($this->chars as $char)
 		</div>
 		<?php } ?>
 		<div class="post-content" ?>
-		   <?php echo $post->content; ?>
+		   <?php echo nl2br(htmlspecialchars($post->content)); ?>
 		</div>
 	</div>
 <?php } ?>
