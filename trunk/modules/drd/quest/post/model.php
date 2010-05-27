@@ -100,7 +100,7 @@ class DrD_Quest_Post_Model
      */
     public function add_whisp_to($char)
     {
-        if($user < 1) throw new UnexpectedCharacterIdException("Neočekávané id postavy -- nelze pridat whisp.", "Neplatné id postavy", "Neplatné id postavy.", 6220);
+        if($char < 1) throw new UnexpectedCharacterIdException("Neočekávané id postavy -- nelze pridat whisp.", "Neplatné id postavy", "Neplatné id postavy.", 6220);
 
         array_push($this->whisper_to, $char);
     }
