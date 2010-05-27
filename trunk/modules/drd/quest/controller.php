@@ -202,7 +202,7 @@ class DrD_Quest_Controller implements ControllerInterface
             $this->m_View->printPage();
             return;  
         }
-        
+        $this->m_View->quest = $quest;
         $this->m_View->quest_chars = DrD_Character_Model::load_by_quest($quest->quest_id);
         $this->m_View->add_chars = DrD_Character_Model::load_without_quest();
         $this->m_View->gm = $user;
@@ -211,7 +211,7 @@ class DrD_Quest_Controller implements ControllerInterface
         $this->m_View->printPage();
     }
     
-    public function manage_add()
+    public function manage_add_action()
     {
         $auth = new Authentificator();
         $user = $auth->logged_user();
