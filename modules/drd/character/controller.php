@@ -24,7 +24,32 @@ class DrD_Character_Controller implements ControllerInterface
 
     public function create_action()
     {
+        $auth = new Authentificator();
+        $user = $auth->logged_user();
         
+        $name = $this->m_request->get_param('name');
+        if(empty($name)) {
+            $this->m_view->err = true;
+            $this->m_view->msg = "Příliš krátké jméno postavy.";
+            $this->m_view->printPage();
+            return;
+        }
+        
+        $char = new DrD_Character_Model();
+        $char->name = $name;
+        $char->mana = $this->m_request->get_param_int('mana');
+        $char->hit_points = $this->m_request->get_param_int('hitpoint');
+        $char->description = $this->m_request->get_param('description');
+        $char->items = $this->m_request->get_param('items');
+        $race = DrD_Race_Model::load($this->m_request->get_param_int('race'));
+        $class = DrD_Class_Model::load($this->m_request->get_param_int('class'));
+        $char->race = $race;
+        $char->class = $class;
+        $char->save();
+        
+        $this->m_view->err = false;
+        $this->m_view->msg = "Postava byla úspěšně vytvořena";
+        $this->m_view->printPage();
     }
 
     public function create_form_action()
