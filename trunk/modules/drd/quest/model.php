@@ -374,7 +374,7 @@ class DrD_Quest_Model
      * 
      * @param newVal
      */
-    public function setactive(bool $newVal)
+    public function setactive($newVal)
     {
         $this->active = $newVal;
     }
