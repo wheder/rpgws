@@ -19,7 +19,7 @@
 </ul>
 <hr />
 <h2>Přidání postavy:</h2>
-<form action="/drd/quest/manage_add/" method="post">
+<form action="/drd/quest/manage_add/<?php echo $this->quest->quest_id?>" method="post">
     <p>
     Postavy:
     </p>
