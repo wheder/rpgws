@@ -509,8 +509,9 @@ class DrD_Character_Model
         $idx = array_search($quest, $this->quests);
         if($idx === false) return;
         
-        unset($this->quest[$idx]);
+        unset($this->quests[$idx]);
         $this->q_changed = true;
+
     }
 
     /**
