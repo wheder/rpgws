@@ -149,7 +149,8 @@ class DrD_Quest_Model
         global $rpgws_config;
         $query = "
             SELECT
-                *
+                *,
+                CAST(active AS UNISGNED) AS active
             FROM
                 " . $rpgws_config['db']['prefix'] . "drd_quests
             WHERE
@@ -216,7 +217,8 @@ class DrD_Quest_Model
         
         $query = "
             SELECT
-                *
+                *,
+                CAST(active AS UNISGNED) AS active
             FROM
                 " . $rpgws_config['db']['prefix'] . "drd_quests
         ";
@@ -254,7 +256,8 @@ class DrD_Quest_Model
         
         $query = "
             SELECT
-                *
+                *,
+                CAST(active AS UNISGNED) AS active
             FROM
                 " . $rpgws_config['db']['prefix'] . "drd_quests
             WHERE
