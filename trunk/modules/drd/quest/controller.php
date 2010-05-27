@@ -32,6 +32,13 @@ class DrD_Quest_Controller implements ControllerInterface
         
         $quest = new DrD_Quest_Model();
         $quest->description = $this->m_Request->get_param($desc);
+        if(empty($quest->description)) {
+            $this->m_View->err = true;
+            $this->m_View->msg = "Prázdný popisek questu.";
+            $this->m_View->printPage();
+            return;
+        }
+        
         $quest->game_master_id = $user;
         $quest->active = true;
         $quest->save(); 
@@ -44,9 +51,6 @@ class DrD_Quest_Controller implements ControllerInterface
 
     public function create_form_action()
     {
-        $authen = new Authentificator();
-        $user = $authen->logged_user();
-        
         $this->m_View->printPage();
     }
 
@@ -70,11 +74,33 @@ class DrD_Quest_Controller implements ControllerInterface
 
     public function view_action()
     {
+        $auth = new Authentificator();
+        $user = $auth->logged_user();
+        
+        $id = $this->m_Request->get_uri_id();
+        
+        $quest = DrD_Quest_Model::load($id);
+        $this->m_View->quest = $quest;
+        $posts = DrD_Quest_Post_Model::load_all_by_quest($quest->quest_id);
+        $this->m_View->posts = array();
+        
+        foreach ($posts as $post) {
+            if($post->is_whisper_to($user) || $quest->game_master_id == $user) {
+                array_push($this->m_View->posts, $post);
+            }
+        }
+        
+        $this->m_View->printPage();
+    }
+    
+    public function list_action()
+    {
+        
     }
 
     public function index_action() 
     {
-        header('location: /drd/quest/view');  
+        header('location: /drd/quest/list');  
     }
 }
 ?>
