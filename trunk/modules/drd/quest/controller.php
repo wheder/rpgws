@@ -204,7 +204,7 @@ class DrD_Quest_Controller implements ControllerInterface
         }
         
         $this->m_View->quest_chars = DrD_Character_Model::load_by_quest($quest->quest_id);
-        $this->m_View->add_chars = DrD_Character_Model::get_all_names();
+        $this->m_View->add_chars = DrD_Character_Model::load_all();
 
         $this->m_View->err = false;
         $this->m_View->printPage();
