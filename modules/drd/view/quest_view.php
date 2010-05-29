@@ -34,7 +34,14 @@ if(!empty($this->chars)) foreach($this->chars as $char)
 <?php foreach($this->posts as $post) {?>
 	<div class="post">
 		<div class="author">
-			<?php echo ($post->author_character === null ? 'Pán jeskyně' : htmlspecialchars($post->author_character->name));?>
+		<?php if(!empty($post->author_character)) {
+                    echo "<a href=\"/drd/character/view/" . $post->author_character->name . "\">";
+		}
+	        echo ($post->author_character === null ? 'Pán jeskyně' : htmlspecialchars($post->author_character->name));
+                if(!empty($post->author_character)) {
+                    echo "</a>";
+		}
+		?>
 		</div>
 		<div class="time">
 			<?php echo $post->time; ?>

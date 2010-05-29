@@ -203,7 +203,8 @@ class Authentificator
                 last_ip = INET_ATON(" . $this->m_DB->quote($_SERVER['REMOTE_ADDR']) . ")
             WHERE
                 user_id = " . $this->m_DB->quote($result['user_id']). "
-        ";                 
+        "; 
+	$this->m_DB->query($query);
         $this->create_session($result);
         
         $this->do_log($result['user_id'], true);
