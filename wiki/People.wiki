@@ -15,7 +15,7 @@ a taky status jejich stavu
 }}}
   * Kabuto
 {{{
- stav: neznamy
+ moc sa mu do toho nechce, ale verim, ze pri trose pile ho pretahneme na nasi stranu
 }}}
   * Arfik
 {{{
