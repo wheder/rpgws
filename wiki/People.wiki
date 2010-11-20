@@ -59,7 +59,7 @@ a taky status jejich stavu
 }}}
   * Bluetear
 {{{
- stav: neznamy
+ je s nama
 }}}
   * Tulak
 {{{
@@ -90,6 +90,10 @@ a taky status jejich stavu
  stav: neznamy
 }}}
   * Kamenik
+{{{
+ stav: neznamy
+}}}
+  * Krolito
 {{{
  stav: neznamy
 }}}
