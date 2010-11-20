@@ -48,7 +48,7 @@ a taky status jejich stavu
 }}}
   * Mory
 {{{
- ?
+ uz sa nemoze dockat, az to propukne
 }}}
   * Guner
 {{{
