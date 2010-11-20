@@ -9,6 +9,10 @@ a taky status jejich stavu
 {{{
  su jasny
 }}}
+  * Smajdalf
+{{{
+ IN
+}}}
   * Kabuto
 {{{
  stav: neznamy
