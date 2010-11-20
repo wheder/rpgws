@@ -1,18 +1,103 @@
 = Lidi o kterych budeme hovorit =
 a taky status jejich stavu
 
-
-  * Medivh
+  * wheder
 {{{
- kecy
+ je jasny
+}}}
+  * santa
+{{{
+ su jasny
 }}}
   * Kabuto
 {{{
- co nato?
- mno?
+ stav: neznamy
 }}}
-  * dalsi
-  * a dalsi
+  * Arfik
+{{{
+ stav: neznamy
+}}}
+  * Zafael
+{{{
+ stav: neznamy
+}}}
+  * Medivh
+{{{
+ stav: neznamy
+}}}
+  * Orcslayer
+{{{
+ stav: neznamy
+}}}
+  * Konik
+{{{
+ stav: neznamy
+}}}
+  * Silas
+{{{
+ stav: neznamy
+}}}
+  * Gwyne
+{{{
+ stav: neznamy
+}}}
+  * Mory
+{{{
+ stav: neznamy
+}}}
+  * Guner
+{{{
+ stav: neznamy
+}}}
+  * Benesse
+{{{
+ stav: neznamy
+}}}
+  * Morgrim
+{{{
+ stav: neznamy
+}}}
+  * Bluetear
+{{{
+ stav: neznamy
+}}}
+  * Tulak
+{{{
+ stav: neznamy
+}}}
+  * Wojta
+{{{
+ stav: neznamy
+}}}
+  * Aragornil
+{{{
+ stav: neznamy
+}}}
+  * Kallen
+{{{
+ stav: neznamy
+}}}
+  * Gena
+{{{
+ stav: neznamy
+}}}
+  * Arekes
+{{{
+ stav: neznamy
+}}}
+  * Corin
+{{{
+ stav: neznamy
+}}}
+  * Kamenik
+{{{
+ stav: neznamy
+}}}
+  * Sulion
+{{{
+ stav: neznamy
+}}}
+
 
 
 
