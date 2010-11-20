@@ -1,5 +1,18 @@
-#Lidi o kterych budeme hovorit
+= Lidi o kterych budeme hovorit =
+a taky status jejich stavu
 
+
+* Medivh
+{{{
+ kecy
+}}}
+* Kabuto
+{{{
+ co nato?
+ mno?
+}}}
+* dalsi
+* a dalsi
 
 
 
