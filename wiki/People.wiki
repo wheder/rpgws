@@ -2,17 +2,17 @@
 a taky status jejich stavu
 
 
-* Medivh
+  * Medivh
 {{{
  kecy
 }}}
-* Kabuto
+  * Kabuto
 {{{
  co nato?
  mno?
 }}}
-* dalsi
-* a dalsi
+  * dalsi
+  * a dalsi
 
 
 
