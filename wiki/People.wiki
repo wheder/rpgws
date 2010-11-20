@@ -3,7 +3,8 @@ a taky status jejich stavu
 
   * wheder
 {{{
- je jasny
+ - chief project leader
+ - je jasny
 }}}
   * santa
 {{{
