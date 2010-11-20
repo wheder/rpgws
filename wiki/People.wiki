@@ -99,7 +99,7 @@ a taky status jejich stavu
 }}}
   * Krolito
 {{{
- stav: neznamy
+ mozem s nim pocitat
 }}}
   * Sulion
 {{{
