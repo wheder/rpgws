@@ -19,47 +19,47 @@ a taky status jejich stavu
 }}}
   * Arfik
 {{{
- stav: neznamy
+ ?
 }}}
   * Zafael
 {{{
- stav: neznamy
+ ?
 }}}
   * Medivh
 {{{
- stav: neznamy
+ ?
 }}}
   * Orcslayer
 {{{
- stav: neznamy
+ ?
 }}}
   * Konik
 {{{
- stav: neznamy
+ ?
 }}}
   * Silas
 {{{
- stav: neznamy
+ ?
 }}}
   * Gwyne
 {{{
- stav: neznamy
+ ?
 }}}
   * Mory
 {{{
- stav: neznamy
+ ?
 }}}
   * Guner
 {{{
- stav: neznamy
+ ?
 }}}
   * Benesse
 {{{
- stav: neznamy
+ ?
 }}}
   * Morgrim
 {{{
- stav: neznamy
+ ?
 }}}
   * Bluetear
 {{{
@@ -67,35 +67,35 @@ a taky status jejich stavu
 }}}
   * Tulak
 {{{
- stav: neznamy
+ ?
 }}}
   * Wojta
 {{{
- stav: neznamy
+ ?
 }}}
   * Aragornil
 {{{
- stav: neznamy
+ ?
 }}}
   * Kallen
 {{{
- stav: neznamy
+ ?
 }}}
   * Gena
 {{{
- stav: neznamy
+ ?
 }}}
   * Arekes
 {{{
- stav: neznamy
+ je to nas chalan
 }}}
   * Corin
 {{{
- stav: neznamy
+ ?
 }}}
   * Kamenik
 {{{
- stav: neznamy
+ ?
 }}}
   * Krolito
 {{{
@@ -103,7 +103,7 @@ a taky status jejich stavu
 }}}
   * Sulion
 {{{
- stav: neznamy
+ ?
 }}}
 
 
