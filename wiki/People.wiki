@@ -44,7 +44,7 @@ a taky status jejich stavu
 }}}
   * Silas
 {{{
- ?
+ v ramci moznosti je nas
 }}}
   * Gwyne
 {{{
