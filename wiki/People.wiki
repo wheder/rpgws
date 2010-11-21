@@ -28,7 +28,7 @@ a taky status jejich stavu
 }}}
   * Zavael
 {{{
- ?
+ ide do toho, ale nevi, jak na tom bude s casem
 }}}
   * Medivh
 {{{
