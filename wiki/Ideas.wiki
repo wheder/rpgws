@@ -1,4 +1,28 @@
-#summary One-sentence summary of this page.
+= Nápady a všelijaké výmysly =
+
+  * Questy
+{{{
+ - prehledovu tabulku pro postavu s ukoncenyma questama, dobou trvani, dokonceni, kvalitu prispevku atd atd
+ - eliminace archivovani questu (k dokoncenemu questu pridat priznak a skryt ho)
+}}}
+  * Kvalita prispevku
+{{{
+ - kazdemu hraci by se pocitala za kazdy quest kvalita zvlast.......zobrazovala by se v prehledove tabulce u kazdeho questu (at uz dokonceneho nebo nedokonceneho)
+}}}
+  * Expování
+{{{
+ - budou hodnoceny jen prispevky, ve kterych se odehraje nejaka akce
+ - pridani kolonky na oduvodneni, proc pj udelil zrovna tolik xp
+ - hraci budou expy prideleny az na konci questu (byla by k dispozici fce, ktera by spocitala vsechny xp - mohl by je potom pridelit pj pripadne ta fce)
+}}}
+
+
+
+
+
+
+
+
 
 = Introduction =
 
