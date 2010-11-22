@@ -16,6 +16,7 @@
  - pridani kolonky na oduvodneni, proc pj udelil zrovna tolik xp
  - hraci budou expy prideleny az na konci questu (byla by k dispozici fce, ktera by spocitala vsechny xp - mohl by je potom pridelit pj pripadne ta fce)
 }}}
+  * Cechy/Gildy
 
 
 
