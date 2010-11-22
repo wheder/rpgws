@@ -7,7 +7,8 @@
 }}}
   * Kvalita prispevku
 {{{
- - kazdemu hraci by se pocitala za kazdy quest kvalita zvlast.......zobrazovala by se v prehledove tabulce u kazdeho questu (at uz dokonceneho nebo nedokonceneho)
+ - kazdemu hraci by se pocitala za kazdy quest kvalita zvlast
+ - zobrazovala by se v prehledove tabulce u kazdeho questu (at uz dokonceneho nebo nedokonceneho)
 }}}
   * Expování
 {{{
