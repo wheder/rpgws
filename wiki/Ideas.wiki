@@ -4,6 +4,7 @@
 {{{
  - (za tento napad dekuju Silasovi) při registraci postavy, by mel uzivatel moznost, nahazet si staty postavy....vytvorila by se tam kostka ("nahodny" generator cisel 1-6) uzivatel by si mohl postupne nahazet cisla, ktere pak rozdeli k ruznym statum
  - uzivatel by mel k dispozici jeden opravny hod
+ - (navrh od Zavaela) kazdy uzivatel by dostal jisty pocet bodu pri registraci, ktere by si prerozdelil do statu dle sve libosti, samozrejme by nesmel prekrocit maximalni cislo urcene dle rasy a povolani.....pocet bodu by byl omezeny podle rasy a povolani
 }}}
   * Questy
 {{{
