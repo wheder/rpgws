@@ -11,6 +11,8 @@
  - prehledovu tabulku pro postavu s ukoncenyma questama, dobou trvani, dokonceni, kvalitu prispevku atd atd
  - eliminace archivovani questu (k dokoncenemu questu pridat priznak a skryt ho)
  - skryt psane myslenky v prispevku a zobrazit POUZE pjovi, co vede quest
+ - moznost septat vice lidem najednou
+ - v ramci jednoho prispevku by se dalo septat vice lidem, ale kazdemu cloveku zvlast (vyuzily by to nejspis jen PJove, aby nemoseli psat vice prispevku).....mohlo by to byt reseno pomoci tagu, pr: [whisp "Nick1"]septani prvni postave[/whisp] [whisp "Nick2"]septani druhe postave[/whisp]
 }}}
   * Kvalita prispevku
 {{{
