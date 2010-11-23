@@ -29,6 +29,10 @@
 }}}
   * Osobní deník
 {{{
+ - mela by byt moznost, aby se na portale objevovalo vice postav se stejnym jmenem
+ - obsah torny by mel zustat skryty, ostatni postavy by v deniku mohli videt pouze, co je na postave viditelne umisteno
+ - vytvorit dalsi ukladaci prostor, ne vsichni si poridi tornu, tak by meli mit aspon kapsy na nejake drobnosti pripadne mesec na nejaky ten drobs
+ - udelal bych nejaky omezeny pocet itemu v torne, prece jen je trosku blbost nosit uvnitr celu zbrojnicu, satnu, apatiku,......ale to bych prodiskutoval trosku vic do hloubky
  - zvlastni kolonka "hrac to pj", ktera by se zobrazovala pouze PJovi, hrac by tam psal nejake osobni info, charakter postavy, proste neco, co by melo byt ostatnim hracum zatajeno a nemohli to vycist z historie
 }}}
 
