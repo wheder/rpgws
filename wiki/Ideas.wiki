@@ -28,7 +28,6 @@
   * Cechy/Gildy
 {{{
  - nejspis bych moc nemenil....jen bych pridal moznost vytvorit dalsi "forum" pro rozsireni RP zivota
- - pokud by byla postava v questu, nemohla by psat do zivota a pred vstupem do questu by mela nejak sepsat svuj odchod
 }}}
   * Osobní deník
 {{{
