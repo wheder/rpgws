@@ -1,9 +1,14 @@
 = Nápady a všelijaké výmysly =
 
+  * Registrace nové postavy
+{{{
+ - (za tento napad dekuju Silasovi) při registraci postavy, by mel uzivatel moznost, nahazet si staty postavy....vytvorila by se tam kostka ("nahodny" generator cisel 1-6) uzivatel by si mohl postupne nahazet cisla, ktere pak rozdeli k ruznym statum
+ - uzivatel by mel k dispozici jeden opravny hod
   * Questy
 {{{
  - prehledovu tabulku pro postavu s ukoncenyma questama, dobou trvani, dokonceni, kvalitu prispevku atd atd
  - eliminace archivovani questu (k dokoncenemu questu pridat priznak a skryt ho)
+ - skryt psane myslenky v prispevku a zobrazit POUZE pjovi, co vede quest
 }}}
   * Kvalita prispevku
 {{{
@@ -18,7 +23,12 @@
 }}}
   * Cechy/Gildy
 {{{
-
+ - nejspis bych moc nemenil....jen bych pridal moznost vytvorit dalsi "forum" pro rozsireni RP zivota
+ - pokud by byla postava v questu, nemohla by psat do zivota a pred vstupem do questu by mela nejak sepsat svuj odchod
+}}}
+  * Osobní deník
+{{{
+ - zvlastni kolonka "hrac to pj", ktera by se zobrazovala pouze PJovi, hrac by tam psal nejake osobni info, charakter postavy, proste neco, co by melo byt ostatnim hracum zatajeno a nemohli to vycist z historie
 }}}
 
 
