@@ -22,7 +22,7 @@
   * Expování
 {{{
  - budou hodnoceny jen prispevky, ve kterych se odehraje nejaka akce
- - pridani kolonky na oduvodneni, proc pj udelil zrovna tolik xp
+ - pridani kolonky na oduvodneni, proc pj udelil zrovna tolik xp(moznost skryti kolonky, nebo defaultne nastavit, aby byla skryta a pokud by uzivatel chtel, mohl by ji rozkliknut)
  - hraci budou expy prideleny az na konci questu (byla by k dispozici fce, ktera by spocitala vsechny xp - mohl by je potom pridelit pj pripadne ta fce)
 }}}
   * Cechy/Gildy
