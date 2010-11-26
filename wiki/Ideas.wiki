@@ -29,6 +29,7 @@
 {{{
  - nejspis bych moc nemenil....jen bych pridal moznost vytvorit dalsi "forum" pro rozsireni RP zivota
  - skryt finance, pocet clenu
+ - odkaz na cechy by sa menoval nejak jinak, aby kazda skupinka lidi nebyla oznacovana za cech.....kazde takove uskupeni lidi, by se mohlo pojmenovat podle jejich uvazeni a dat si status, jaky by chteli oni, at uz cech, bratrstvo, gilda, řád, spolek, etc
 }}}
   * Osobní deník
 {{{
