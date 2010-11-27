@@ -1,6 +1,6 @@
 = Lidi o kterych budeme hovorit =
 a taky status jejich stavu
-
+ 
   * wheder
 {{{
  - chief project leader
