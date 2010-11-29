@@ -29,7 +29,7 @@
  * zvlastni kolonka "hrac to pj", ktera by se zobrazovala pouze PJovi, hrac by tam psal nejake osobni info, charakter postavy, proste neco, co by melo byt ostatnim hracum zatajeno a nemohli to vycist z historie
  * nezobrazovat cech, ve kterem postava je
 == Vedlejší moduly ==
-Kovárna
+===Kovárna===
  * zruseni kovadlinek a amuletu, zvysujici staty postavy
  * nechat top tree
 
