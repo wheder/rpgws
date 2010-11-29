@@ -32,7 +32,7 @@ a taky status jejich stavu
 }}}
   * Medivh
 {{{
- ?
+ tehotny
 }}}
   * Orcslayer
 {{{
